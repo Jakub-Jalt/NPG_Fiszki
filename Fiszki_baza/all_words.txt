@@ -1,71 +1,55 @@
-animal		zwierze
-home		dom
-phone		telefon
-clock		zegar
-notebook	zeszyt
-book		ksi¹¿ka
-computer	komputer
-light		œwiat³o
-water		woda
-salt		sól
-earpods		s³uchawki
-lion		lew
-monkey		ma³pa
-cat		kot
-dog		pies
-lamp		lampa
-chair		krzes³o
-table		stó³
-floor		pod³oga
-wall		œciana
-window		okno
-silling		sufit
-door		drzwi
-armchair	fotel
-glasses		okulary
-man		mê¿czyzna
-woman		kobieta
-child		dziecko
-picture		obraz
-people		ludzie
-air		powietrze
-grass		trawa
-think		myœleæ
-thing		rzecz
-mouse		mysz
-tiger		tygrys
-elephant	s³oñ
-fly		mucha
-spider		paj¹k
-snake		w¹¿
-cow		krowa
-sheep		owca
-horse		koñ
-butterfly	motyl
-red		czerwony
-apple		jab³ko
-bannana		banan
-limon		cytryna
-orange		pomarañcza
-pinapple	ananas
-stawberry	truskawka
-raspberry	malina
-flower		kwiat
-plant 		roœlina
-tree		drzewo
-forest		las
-beach		pla¿a
-mountain	góra
-black		czarny
-white		bia³y
-run		bigaæ
-drink		piæ
-jump		skakaæ
-eat		jeœæ
-sleep		spaæ
-cry		p³akaæ
-write		pisaæ
-read		czytaæ
-die		umieraæ
-live		¿yæ
-drive		jechaæ
+read-czytaæ
+die-umieraæ
+live-¿yæ
+drive-jechaæ
+address-adres
+age-wiek
+date of birth-data urodzenia
+divorced-rozwiedziony
+female-kobieta
+gender-p³eæ
+man-me¿czyzna
+name-imie
+surname-nazwisko
+nationality-narodowoœæ
+attractive-atrakcyjny
+unattractive-nieatrakcyjny
+beautifull-piêkny
+ugly-brzydki
+handsome-przystojny
+fat-gruby
+slim-chudy
+muscular-muskularny
+skinny-chudy
+dark-ciemny
+light-jasny
+hat-czapka
+shirt-koszula
+suit-garnitur
+belt-pasek
+cap-czapka
+classes-okulary
+sunglasses-okulary przeciws³oneczne
+angry-zly/rozgniwany
+relaxed-zrelaksowany
+scared-przestraszony
+pleased-zadowolony
+tired-zmêczony
+upset-przygnebiony
+worried-zmartwiony
+adore-uwielbiaæ
+bored-znudzony
+cat-kot
+dog-pies
+elephant-s³on
+tiger-tygrys
+pen-d³ugopis
+pencil-o³ówek
+water-woda
+smile-uœmiech
+computer-komputer
+mouse-mysz
+rat-szczur
+sun-s³once
+sky-niebo
+river-rzeka

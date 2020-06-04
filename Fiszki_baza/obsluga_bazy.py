@@ -3,57 +3,68 @@
 
 import random
 
-list = open('random_words_ang.txt').read().split() # lista wszystkich elementów pliku bazy
-n_of_words = len(list)
-n_of_pairs = int(n_of_words/2)
 
-list_only_ang = []      # lista tylko angielskich słow
-i = 0
-while i < n_of_words:
-    if i % 2 == 0:
-        list_only_ang.append(list[i])
-    i += 1
+class Base:
+    def __init__(self, words_lst: list):
+        self.words_lst = words_lst
 
-list_only_pl = []       # lista tylko polskich słow
-i = 0
-while i < n_of_words:
-    if i % 2 == 1:
-        list_only_pl.append(list[i])
-    i += 1
+    def n_of_words(self) -> int:
+        return len(self.words_lst)
 
-list_of_pairs_numbered = {}
-k = 0
-i = 0
-while i < n_of_words:
-    v = [list[i], list[i+1]]
-    list_of_pairs_numbered[k] = v
-    i += 2
-    k += 1
+    def get_lst_of_pairs(self) -> list:
+        lst_of_pairs = []
+        i = 0
+        while i < self.n_of_words():
+            v = [self.words_lst[i], self.words_lst[i+1]]
+            lst_of_pairs.append(v)
+            i += 2
+        return lst_of_pairs
+
+    def get_random_pair(self) -> list:
+        x = random.randint(0, len(self.get_lst_of_pairs()) - 1)
+        return self.get_lst_of_pairs()[x]
+
+    def get_all_only_pl(self) -> list:
+        only_pl = []
+        i = 0
+        for elem in self.words_lst:
+            if i % 2 == 1:
+                only_pl.append(elem)
+            i += 1
+        return only_pl
+
+    def get_all_only_ang(self) -> list:
+        only_ang = []
+        i = 0
+        for elem in self.words_lst:
+            if i % 2 == 0:
+                only_ang.append(elem)
+            i += 1
+        return only_ang
+
+    def get_random_ang(self) -> str:
+        all_ang = self.get_all_only_ang()
+        x = random.randint(0, len(all_ang))
+        return all_ang[x]
+
+    def get_random_pl(self) -> str:
+        all_pl = self.get_all_only_pl()
+        x = random.randint(0, len(all_pl))
+        return all_pl[x]
 
 
-# funkcja zwraca n-tą pare słów jako lista
-def get_pair_by_n(n: int) -> list:
-    return list_of_pairs_numbered[n]
+easy = open('easy_words.txt').read().replace("\n", "-").split("-")
+easy_base = Base(easy)
+# print(easy_base.get_lst_of_pairs())
+# print(easy_base.get_random_pair())
+# print(easy_base.get_all_only_pl())
+# print(easy_base.get_all_only_ang())
+# print(easy_base.get_random_ang())
+# print(easy_base.get_random_pl())
 
+all = open('all_words.txt').read().replace("\n", "-").split("-")
+all_base = Base(all)
 
-# funkcja zwraca losowe angielskie slowo
-def get_rand_ang() -> str:
-    r = random.randint(0, len(list_only_ang) - 1)
-    return list_only_ang[r]
-
-
-# funkcja zwraca losowe polskie slowo
-def get_rand_pl() -> str:
-    r = random.randint(0, len(list_only_pl) - 1)
-    return list_only_pl[r]
-
-
-# funkcja zwraca losowa pare slow jako lista 2-elementowa
-def get_rand_pair() -> list:
-    r = random.randint(0, n_of_pairs - 1)
-    return list_of_pairs_numbered[r]
-
-
-# print(get_rand_pl())
-# print(get_rand_ang())
-# print(get_rand_pair())
+# zeby dostac slowo z duzej litery
+print(all_base.get_random_pl().capitalize())
+print(all_base.get_random_ang().capitalize())

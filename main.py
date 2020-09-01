@@ -1,2 +1,4 @@
-#!/usr/bin/python
-# -*- coding: utf-8 -*-
+import gui
+import obsluga_bazy
+
+gui.main() #odpalenie gui

@@ -74,7 +74,7 @@ def topmenu(root,main):
     menutop.add_command(label="Wyjdz", )
     root.config(menu=menu)
 
-if __name__ == "__main__":
+def main():
     root = tk.Tk()
     main = MainView(root)
     main.pack(side="top", fill="both", expand=True)

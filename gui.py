@@ -1,13 +1,16 @@
 import tkinter as tk
+import time
 
 class MainView(tk.Frame):
     def __init__(self, *args, **kwargs):
         tk.Frame.__init__(self, *args, **kwargs)
-
-        p1 = Page_main(self)
+    def base(self):
+        global p1
+        global p2
+        global p3
+        p1 = PageMain(self)
         p2 = Page2(self)
         p3 = Page3(self)
-
         buttonframe = tk.Frame(self)
         container = tk.Frame(self)
         buttonframe.pack(side="top", fill="x", expand=False)
@@ -27,20 +30,31 @@ class MainView(tk.Frame):
 
         p1.show()
 
-
-
-
 class Page(tk.Frame):
     def __init__(self, *args, **kwargs):
         tk.Frame.__init__(self, *args, **kwargs)
     def show(self):
         self.lift()
 
-class Page_main(Page):
+class PageMain(Page):
     def __init__(self, *args, **kwargs):
+        global imie                                # zmienna imie
         Page.__init__(self, *args, **kwargs)
-        label = tk.Label(self, text="This is page main")
-        label.pack(side="top", fill="both", expand=True)
+        etykieta = tk.StringVar()
+        label = tk.Label(self, textvariable=etykieta)
+        etykieta.set("Witaj w aplikacji do nauki \n poprzez Fiszki !!! \n\n podaj swoje imie: ")
+        name = tk.Entry(self, width=30)
+        label.grid(row=2, column=2)
+        name.grid(row=3, column=2)
+        def hello():
+            etykieta.set("Witaj, {0}\n teraz czeka cię nauka :)".format(name.get()))
+            imie = name
+            name.delete(0, 'end')
+            time.sleep(1)
+
+
+        ok = tk.Button(text="OK", command=hello)
+        ok.pack()
 
 
 class Page2(Page):
@@ -65,20 +79,25 @@ class Page3(Page):
 #         self["bd"] = 8
 #         self["bg"] = "red"
 
-def topmenu(root,main):
+
+
+
+def topmenu(root):
     menu = tk.Menu(root)
-    menutop = tk.Menu(menu)
+    menutop = tk.Menu(menu, tearoff=0)
+    menutop.add_command(label="P1", command=p1.lift)
+    menutop.add_command(label="P2", command=p2.lift)
+    menutop.add_command(label="P3", command=p3.lift)
     menu.add_cascade(label="Opcje", menu=menutop)
-    menutop.add_command(label="Powrot", )
-    menutop.add_command(label="Zapisz", )
-    menutop.add_command(label="Wyjdz", )
     root.config(menu=menu)
+
 
 def main():
     root = tk.Tk()
     main = MainView(root)
+    main.base()
     main.pack(side="top", fill="both", expand=True)
     root.wm_geometry("400x400")
     root.title("Aplikacja do fiszek")
-    topmenu(root,main)
+    topmenu(root)
     root.mainloop()

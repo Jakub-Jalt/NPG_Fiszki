@@ -64,4 +64,4 @@ def words_statistics() -> None:                 #Funkcja sterująca statystykami
         f.close()
 
 
-words_statistics()
+game(1)

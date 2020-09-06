@@ -38,6 +38,7 @@ def main():
 
 def menu():
     global page, mode
+    run_4(1)
     print('available pages:\n2 - learning mode\n3 - edit mode\n4 - stats mode')
     while mode is True:
         page = input('enter page num. or \'exit\' to exit the app: ')
@@ -52,7 +53,13 @@ def menu():
             else:
                 print('you entered incorrect answer')
         elif page == '4':
-            run_4()
+            action = input('to update your statistics type 1\nto show them - type 2\n')
+            if action == '1':
+                run_4(1)
+            elif action == '2':
+                run_4(2)
+            else:
+                print('you entered incorrect answer')
         elif page == 'exit':
             page = 0
             mode = False
@@ -86,11 +93,16 @@ def run_3(f: int = 0):
     return
 
 
-def run_4():
+def run_4(f: int = 0):
     global nick
     with open(f'statistics\\{nick}.txt', 'r', encoding='utf-8') as user_stats:
         new = mo_s.Steve(user_stats.read())
-    new.check_day()
+    if f == 1:
+        new.check_day()
+    elif f == 2:
+        new.show()
+    else:
+        pass
     with open(f'statistics\\{nick}.txt', 'w', encoding='utf-8') as user_stats:
         user_stats.write(new.ret_stat())
     return

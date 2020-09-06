@@ -9,6 +9,8 @@ class Steve:
 
     def __init__(self, stat_list: str):
         self.stat_list = stat_list.split(' ')
+        if self.stat_list[-1] == '\n':
+            self.stat_list = self.stat_list[:-1]
 
     def check_day(self):
 
@@ -31,6 +33,13 @@ class Steve:
             update(today, previous)
         return
 
+    def show(self):
+        temp_var = f'today\'date: {self.stat_list[0]}\n'
+        for p in range(1, 31):
+            temp_var += f'{p}: {self.stat_list[p]}\n'
+        print(temp_var)
+        return
+
     def ret_stat(self):
         temp_var = ''
         for i in range(31):
@@ -44,5 +53,6 @@ if __name__ == "__main__":
     with open(f'statistics\\{user}.txt', 'r', encoding='utf-8') as user_stats:
         new = Steve(user_stats.read())
     new.check_day()
+    new.show()
     with open(f'statistics\\{user}.txt', 'w', encoding='utf-8') as user_stats:
         user_stats.write(new.ret_stat())

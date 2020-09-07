@@ -27,14 +27,14 @@ class App:
         self.frame1 = tk.Frame(self.root)
 
         self.label_name = tk.StringVar()
-        self.label = tk.Label(self.frame1, textvariable=self.label_name,relief = "raised", font=42 ).pack(side="top", pady=20)
+        self.label = tk.Label(self.frame1, textvariable=self.label_name, font=42 ).pack(side="top", pady=20)
         self.name = tk.Entry(self.frame1)
-        self.name.pack(side="top")
+        self.name.pack(fill=tk.Y)
         self.label_name.set("Witaj w aplikacji do nauki \n poprzez Fiszki !!! \n\n podaj swoje imie: ")
 
         self.button_ok = tk.Button(self.frame1, text="OK", command=lambda: hello(self.name.get()), width=5)
-        self.button_ok.pack(side="top",pady=5)
-        self.frame1.pack(fill="both", expand=True)
+        self.button_ok.pack(pady=5, fill=tk.Y)
+        self.frame1.pack(expand=True)
 
         def hello(name):
             global nick
@@ -166,6 +166,7 @@ class App:
 
 
         page = 5
+        check = 0
 
         self.frame5 = tk.Frame(self.root)
 
@@ -175,13 +176,17 @@ class App:
 
         def communication(i):
             show(i)
-            return(self.word)
+            if check == 1:
+                check = 0
+                return(self.word)
 
         def show(i):
             self.label_name3.set(i)
 
         def newu():
             self.label_name2.set(tryby.game(2))
+
+
 
 
         self.label_name2 = tk.StringVar()
@@ -194,7 +199,7 @@ class App:
         self.word.pack(side="top")
 
 
-        self.send = tk.Button(self.frame5, text="Zatwierdz", command=send, width=15)
+        self.send = tk.Button(self.frame5, text="Zatwierdz", command=lambda check: retrun(check = 1) , width=15)
         self.send.pack(side="top", pady=5, fill=tk.Y)
 
         self.frame5.pack(expand=True, fill=tk.BOTH)

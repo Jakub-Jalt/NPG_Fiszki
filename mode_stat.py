@@ -9,7 +9,7 @@ class Steve:
 
     def __init__(self, stat_list: str):
         self.stat_list = stat_list.replace('\n', ' ').split(' ')
-        if self.stat_list[-1] == '\n':
+        if self.stat_list[-1] == '':
             self.stat_list = self.stat_list[:-1]
 
     def check_day(self):

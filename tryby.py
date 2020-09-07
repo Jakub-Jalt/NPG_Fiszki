@@ -63,5 +63,3 @@ def words_statistics() -> None:                 #Funkcja sterująca statystykami
         lines: List[str] = f.readlines()
         f.close()
 
-
-game(1)

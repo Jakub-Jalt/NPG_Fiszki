@@ -6,7 +6,7 @@ import datetime
 import obsluga_bazy
 import string
 
-imie: str = "Mateusz"
+
 max_points: int = 14            #maksymalna liczba punktów do uzyskania w jednej turze gry
 
 def game(mode: int) -> None:     # mode: 0 - nic, 1 - ang_pol, 2 - pol_ang, 3 - nauka
@@ -14,7 +14,7 @@ def game(mode: int) -> None:     # mode: 0 - nic, 1 - ang_pol, 2 - pol_ang, 3 - 
 
     for i in range(0, max_points):                  #Funkcja losuje słowo i sprawdza czy nie powtarza się z niedawno użytym
         word: List[str] =  obsluga_bazy.all_base.get_random_pair()
-        f = open("users_words\\" + imie + ".txt" , "r", encoding="utf-8")
+        f = open("users_words\\" + nick + ".txt" , "r", encoding="utf-8")
         while str(word) in f.readlines():
             print("powtórzone słowo" + str(word))
             word = obsluga_bazy.all_base.get_random_pair()
@@ -22,23 +22,23 @@ def game(mode: int) -> None:     # mode: 0 - nic, 1 - ang_pol, 2 - pol_ang, 3 - 
 
 
         if mode == 1:
-            if Foo(word[0]) == word[1]:        # Foo - nazwa tymczasowa
+            if App.type2.newu(word[0]) == word[1]:        # Foo - nazwa tymczasowa
                 points += 1
-                f = open("users_words\\" + imie + ".txt", "a", encoding="utf-8")
+                f = open("users_words\\" + nick + ".txt", "a", encoding="utf-8")
                 f.write(str(word) + " \n")
-                #f.close()
+                f.close()
         elif mode == 2:
-            if Foo(word[1]) == word[0]:        # Foo - nazwa tymczasowa
+            if App.type2.newu(word[1]) == word[0]:        # Foo - nazwa tymczasowa
                 points += 1
-                f = open("users_words\\" + imie + ".txt", "a", encoding="utf-8")
+                f = open("users_words\\" + nick + ".txt", "a", encoding="utf-8")
                 f.write(str(word) + " \n")
-                #f.close()
+                f.close()
         elif mode == 3:
             Foo2(word[0] + " - " + word[1])     # Foo2 - nazwa tymczasowa
 
-    f = open("statistics\\" + imie + ".txt", "a")
+    f = open("statistics\\" + nick + ".txt", "a")
     f.write(str(datetime.datetime.now()) + " - " + str(points) + " \n")           #zapisanie liczby uzyskanych punktów do pliku
-    #f.close()
+    f.close()
 #---------------------------------------------------------------------------------------------------------------------------------
 
 

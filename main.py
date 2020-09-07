@@ -1,8 +1,6 @@
-#!/usr/bin/python
-# -*- coding: utf-8 -*-
 
-
-# import gui
+from config import *
+import gui
 import mode_new as mo_n  # moduł odpowiedzialny za utworzenie nowego konta
 import tryby as mo_l  # moduł odpowiedzialny za tryb nauki
 import mode_edit as mo_e  # moduł odpowiedzialny za edycję fiszek
@@ -10,13 +8,9 @@ import mode_stat as mo_s  # moduł opdpowiedzialny za obsługę statystyki
 # import mode_stat_alt as mo_s  # moduł odpowiedzialny za obsługę statystyki
 
 
-# gui.app.main()  # uruchomienie gui
 
 
-nick = 'user'
-page = '0'
-mode = True
-
+gui.app.main() #uruchomienie gui
 
 def main():
     global nick

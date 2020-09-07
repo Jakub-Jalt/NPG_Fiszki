@@ -1,14 +1,9 @@
 import tkinter as tk
 from tkinter import messagebox as msb
-import time
-import glob
 import tryby
+import config as main
 
 
-langchoos = 'null'
-typechoos = 1
-nick = 'user'
-page = 0
 
 
 class App:
@@ -21,8 +16,8 @@ class App:
     #########################      1        ########################
 ###############################################################################
     def main(self):
-        global page
-        page = 1
+
+        config.page = 1
 
         self.frame1 = tk.Frame(self.root)
 
@@ -37,36 +32,31 @@ class App:
         self.frame1.pack(expand=True)
 
         def hello(name):
-            global nick
             print(str)
             msb.showinfo("info", 'Witaj, {0}\n teraz czeka cię nauka :)'.format(name))
-            nick = name  # przypisanie imienia do zmiennej globalnej
+            config.nick = name  # przypisanie imienia do zmiennej globalnej
             self.frame1.destroy()
             self.choosgamepage()
 ###############################################################################
     #########################      2        ########################
 ###############################################################################
     def choosgamepage(self):
-        global page
-        global nick
 
-        page = 2
+        config.page = 2
 
         self.frame2 = tk.Frame(self.root)
 
         self.label_name = tk.StringVar()
         self.label = tk.Label(self.frame2, textvariable=self.label_name, font=42).pack(side="top", pady=20)
-        self.label_name.set("{0} wybierz jezyk do nauki: ".format(nick))
+        self.label_name.set("{0} wybierz jezyk do nauki: ".format(config.nick))
 
         def choospolish():
-            global langchoos
-            langchoos = 'polish'
+            config.langchoos = 'polish'
             self.frame2.destroy()
             self.choostyppage()
 
         def choosenglish():
-            global langchoos
-            langchoos = 'english'
+            config.langchoos = 'english'
             self.frame2.destroy()
             self.choostyppage()
 
@@ -81,9 +71,7 @@ class App:
 ###############################################################################
     def choostyppage(self):
 
-        global page
-
-        page = 3
+        config.page = 3
 
         self.frame3 = tk.Frame(self.root)
 
@@ -92,13 +80,11 @@ class App:
         self.label_name.set("Wybierz tryb nauki: ")
 
         def type1():
-            global typechoos
-            langchoos = 1
+            config.typechoos = 1
             self.frame3.destroy()
             self.type1()
         def type2():
-            global typechoos
-            langchoos = 2
+            config.typechoos = 2
             self.frame3.destroy()
             self.type2()
 
@@ -113,16 +99,15 @@ class App:
     #########################      4        ########################
 ###############################################################################
     def type1(self):
-        global page
-        global langchoos
+
         lang = 'random'
-        if langchoos == 'polish':
+        if config.langchoos == 'polish':
             lang = 'polskim'
-        if langchoos == 'english':
+        if config.langchoos == 'english':
                 lang = 'angielskim'
 
 
-        page = 4
+        config.page = 4
 
         self.frame4 = tk.Frame(self.root)
 
@@ -156,16 +141,15 @@ class App:
     #########################      5        ########################
 ###############################################################################
     def type2(self):
-        global page
-        global langchoos
+
         lang = 'random'
-        if langchoos == 'polish':
+        if config.langchoos == 'polish':
             lang = 'polskim'
-        if langchoos == 'english':
-                lang = 'angielskim'
+        if config.langchoos == 'english':
+            lang = 'angielskim'
 
 
-        page = 5
+        config.page = 5
         check = 0
 
         self.frame5 = tk.Frame(self.root)
@@ -174,11 +158,6 @@ class App:
         self.label = tk.Label(self.frame5, textvariable=self.label_name, font=42).pack(side="top", pady=20, fill=tk.Y)
         self.label_name.set("Nauka słówek w języku {}".format(lang))
 
-        def communication(i):
-            show(i)
-            if check == 1:
-                check = 0
-                return(self.word)
 
         def show(i):
             self.label_name3.set(i)

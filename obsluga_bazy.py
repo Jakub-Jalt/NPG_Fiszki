@@ -66,5 +66,5 @@ all = open('all_words.txt').read().replace("\n", "-").split("-")
 all_base = Base(all)
 
 # zeby dostac slowo z duzej litery
-print(all_base.get_random_pl().capitalize())
-print(all_base.get_random_ang().capitalize())
+#print(all_base.get_random_pl().capitalize())
+#print(all_base.get_random_ang().capitalize())

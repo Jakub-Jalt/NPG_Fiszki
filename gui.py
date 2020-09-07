@@ -2,11 +2,13 @@ import tkinter as tk
 from tkinter import messagebox as msb
 import time
 import glob
+import tryby
 
-nick = "tomek"  # zmienna nick - nazwa pliku
-page = 0 # zmienna odp za numer strony
+
 langchoos = 'null'
 typechoos = 1
+nick = 'user'
+page = 0
 
 
 class App:
@@ -78,6 +80,7 @@ class App:
     #########################      3        ########################
 ###############################################################################
     def choostyppage(self):
+
         global page
 
         page = 3
@@ -97,7 +100,7 @@ class App:
             global typechoos
             langchoos = 2
             self.frame3.destroy()
-            #self.type2()
+            self.type2()
 
         self.button_learning = tk.Button(self.frame3, text="NAUKA", command=type1, width=15)
         self.button_writing = tk.Button(self.frame3, text="WYPISYWANIE", command=type2, width=15)
@@ -133,7 +136,6 @@ class App:
         def newu():
             self.label_name2.set("Nowe slowo")
             self.label_name3.set("")
-            langchoos = 1
 
         self.label_name2 = tk.StringVar()
         self.label_name3 = tk.StringVar()
@@ -149,6 +151,56 @@ class App:
         self.button_writing.pack(side="top", pady=5, fill=tk.Y)
 
         self.frame4.pack(expand=True, fill=tk.BOTH)
+
+###############################################################################
+    #########################      5        ########################
+###############################################################################
+    def type2(self):
+        global page
+        global langchoos
+        lang = 'random'
+        if langchoos == 'polish':
+            lang = 'polskim'
+        if langchoos == 'english':
+                lang = 'angielskim'
+
+
+        page = 5
+
+        self.frame5 = tk.Frame(self.root)
+
+        self.label_name = tk.StringVar()
+        self.label = tk.Label(self.frame5, textvariable=self.label_name, font=42).pack(side="top", pady=20, fill=tk.Y)
+        self.label_name.set("Nauka słówek w języku {}".format(lang))
+
+        def communication(i):
+            show(i)
+            return(self.word)
+
+        def show(i):
+            self.label_name3.set(i)
+
+        def newu():
+            self.label_name2.set(tryby.game(2))
+
+
+        self.label_name2 = tk.StringVar()
+        self.label_name3 = tk.StringVar()
+        self.label2 = tk.Label(self.frame5, textvariable=self.label_name2, font=50).pack(side="top", pady=30,fill=tk.Y)
+        newu()
+        self.label3 = tk.Label(self.frame5, textvariable=self.label_name3, font=50).pack(side="top", pady=30, fill=tk.Y)
+
+        self.word = tk.Entry(self.frame5)
+        self.word.pack(side="top")
+
+
+        self.send = tk.Button(self.frame5, text="Zatwierdz", command=send, width=15)
+        self.send.pack(side="top", pady=5, fill=tk.Y)
+
+        self.frame5.pack(expand=True, fill=tk.BOTH)
+
+
+
 
 root = tk.Tk()
 app = App(root)

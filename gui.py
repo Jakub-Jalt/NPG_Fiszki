@@ -1,9 +1,9 @@
 import tkinter as tk
 from tkinter import messagebox as msb
 import tryby
-import config as main
+import config
 
-
+checkback = 0
 
 
 class App:
@@ -19,101 +19,114 @@ class App:
 
         config.page = 1
 
-        self.frame1 = tk.Frame(self.root)
-
         self.label_name = tk.StringVar()
-        self.label = tk.Label(self.frame1, textvariable=self.label_name, font=42 ).pack(side="top", pady=20)
-        self.name = tk.Entry(self.frame1)
-        self.name.pack(fill=tk.Y)
+        self.label1 = tk.Label(self.root, font=80, textvariable=self.label_name).place(relx=0.2, rely=0.25, relwidth=0.6)
+
         self.label_name.set("Witaj w aplikacji do nauki \n poprzez Fiszki !!! \n\n podaj swoje imie: ")
 
-        self.button_ok = tk.Button(self.frame1, text="OK", command=lambda: hello(self.name.get()), width=5)
-        self.button_ok.pack(pady=5, fill=tk.Y)
-        self.frame1.pack(expand=True)
+        self.name = tk.Entry(self.root)
+        self.name.place(relx=0.25, rely=0.5, relwidth=0.3)
+
+        self.button_ok = tk.Button(self.root, width=10, text="OK", command=lambda: hello(self.name.get()))
+        self.button_ok.place(relx=0.6, rely=0.5, relwidth=0.15)
 
         def hello(name):
-            print(str)
-            msb.showinfo("info", 'Witaj, {0}\n teraz czeka cię nauka :)'.format(name))
-            config.nick = name  # przypisanie imienia do zmiennej globalnej
-            self.frame1.destroy()
+            if name == "":
+                msb.showinfo("info", 'Podaj imie !!!')
+            else:
+                print(str)
+                msb.showinfo("info", 'Witaj, {0}\n teraz czeka cię nauka :)'.format(name))
+                config.nick = name  # przypisanie imienia do zmiennej globalnej
+                self.button_ok.destroy()
+                self.name.destroy()
+                self.choostyppage()
+
+###############################################################################
+      #########################      2        ########################
+###############################################################################
+    def choostyppage(self):
+
+        config.page = 2
+
+        self.label_name.set("WYBIERZ TRYB: ")
+
+        def type1():  # nauka
+            config.typechoos = 1
+            self.button_learning.destroy()
+            self.button_writing.destroy()
+            self.button_stats.destroy()
             self.choosgamepage()
+
+        def type2():  # wpisywanie
+            config.typechoos = 2
+            self.button_writing.destroy()
+            self.button_learning.destroy()
+            self.button_stats.destroy()
+            self.choosgamepage()
+
+        self.button_learning = tk.Button(self.root, text="NAUKA", command=type1, width=15)
+        self.button_writing = tk.Button(self.root, text="WYPISYWANIE", command=type2, width=15)
+        self.button_stats = tk.Button(self.root, text="Statystyki", width=15)  ## BRAK KOMENDY !!!
+        self.button_learning.place(relx=0.35, rely=0.4, relwidth=0.3)
+        self.button_writing.place(relx=0.35, rely=0.48, relwidth=0.3)
+        self.button_stats.place(relx=0.35, rely=0.56, relwidth=0.3)
+
+       # if checkback == 0:
+      #  self.bbutton = tk.Button(text="back", command=self.backbutton())
+    #    self.bbutton.place(relx=0.9, rely=0.9, relwidth=0.8)
+
 ###############################################################################
     #########################      2        ########################
 ###############################################################################
     def choosgamepage(self):
 
         config.page = 2
+        global  checkback
 
-        self.frame2 = tk.Frame(self.root)
+        if checkback == 1:
+            self.bbutton.destroy()
+            checkback = 0
 
-        self.label_name = tk.StringVar()
-        self.label = tk.Label(self.frame2, textvariable=self.label_name, font=42).pack(side="top", pady=20)
-        self.label_name.set("{0} wybierz jezyk do nauki: ".format(config.nick))
+        self.label_name.set("{0} WYBIERZ JĘZYK DO NAUKI: ".format(config.nick))
 
         def choospolish():
             config.langchoos = 'polish'
-            self.frame2.destroy()
-            self.choostyppage()
+            self.button_polish.destroy()
+            self.button_english.destroy()
+            if config.typechoos == 1:
+                self.type1()
+            elif config.typechoos == 2:
+                self.type2()
 
         def choosenglish():
             config.langchoos = 'english'
-            self.frame2.destroy()
-            self.choostyppage()
+            self.button_polish.destroy()
+            self.button_english.destroy()
+            if config.typechoos == 1:
+                self.type1()
+            elif config.typechoos == 2:
+                self.type2()
 
-        self.button_polish = tk.Button(self.frame2, text="POLSKI", command=choospolish, width=15)
-        self.button_english = tk.Button(self.frame2, text="ENGLISH", command=choosenglish, width=15)
-        self.button_english.pack(side="top", pady=5)
-        self.button_polish.pack(side="top", pady=5)
+        self.button_polish = tk.Button(self.root, text="POLSKI", command=choospolish, width=15)
+        self.button_english = tk.Button(self.root, text="ENGLISH", command=choosenglish, width=15)
 
-        self.frame2.pack(fill="both", expand=True)
-###############################################################################
-    #########################      3        ########################
-###############################################################################
-    def choostyppage(self):
-
-        config.page = 3
-
-        self.frame3 = tk.Frame(self.root)
-
-        self.label_name = tk.StringVar()
-        self.label = tk.Label(self.frame3, textvariable=self.label_name, font=42).pack(side="top", pady=20)
-        self.label_name.set("Wybierz tryb nauki: ")
-
-        def type1():
-            config.typechoos = 1
-            self.frame3.destroy()
-            self.type1()
-        def type2():
-            config.typechoos = 2
-            self.frame3.destroy()
-            self.type2()
-
-        self.button_learning = tk.Button(self.frame3, text="NAUKA", command=type1, width=15)
-        self.button_writing = tk.Button(self.frame3, text="WYPISYWANIE", command=type2, width=15)
-        self.button_learning.pack(side="top", pady=5)
-        self.button_writing.pack(side="top", pady=5)
-
-        self.frame3.pack(fill="both", expand=True)
+        self.button_english.place(relx=0.35, rely=0.4, relwidth=0.3)
+        self.button_polish.place(relx=0.35, rely=0.48, relwidth=0.3)
 
 ###############################################################################
     #########################      4        ########################
 ###############################################################################
     def type1(self):
 
-        lang = 'random'
         if config.langchoos == 'polish':
             lang = 'polskim'
         if config.langchoos == 'english':
-                lang = 'angielskim'
+            lang = 'angielskim'
 
 
         config.page = 4
 
-        self.frame4 = tk.Frame(self.root)
-
-        self.label_name = tk.StringVar()
-        self.label = tk.Label(self.frame4, textvariable=self.label_name, font=42).pack(side="top", pady=20, fill=tk.Y)
-        self.label_name.set("Nauka słówek w języku {}".format(lang))
+        self.label_name.set("NAUKA SŁÓWEK W JĘZYKU {}".format(lang))
 
         def show():
             self.label_name3.set("Slowko odkryte")
@@ -124,71 +137,75 @@ class App:
 
         self.label_name2 = tk.StringVar()
         self.label_name3 = tk.StringVar()
-        self.label2 = tk.Label(self.frame4, textvariable=self.label_name2, font=50).pack(side="top", pady=30,fill=tk.Y)
+        self.label2 = tk.Label(self.root, textvariable=self.label_name2, font=50).place(relx=0.35, rely=0.4, relwidth=0.3)
         self.label_name2.set("Slowko po ang lub pol")
-        self.label3 = tk.Label(self.frame4, textvariable=self.label_name3, font=50).pack(side="top", pady=30, fill=tk.Y)
+        self.label3 = tk.Label(self.root, textvariable=self.label_name3, font=50).place(relx=0.35, rely=0.6, relwidth=0.3)
 
 
 
-        self.button_learning = tk.Button(self.frame4, text="Odkryj", command=show, width=15)
-        self.button_writing = tk.Button(self.frame4, text="WYPISYWANIE", command=newu, width=15)
-        self.button_learning.pack(side="top", pady=5, fill=tk.Y)
-        self.button_writing.pack(side="top", pady=5, fill=tk.Y)
+        self.button_learning = tk.Button(self.root, text="Odkryj", command=show, width=15)
+        self.button_writing = tk.Button(self.root, text="WYPISYWANIE", command=newu, width=15)
+        self.button_learning.place(relx=0.35, rely=0.4, relwidth=0.3)
+        self.button_writing.place(relx=0.35, rely=0.4, relwidth=0.3)
 
-        self.frame4.pack(expand=True, fill=tk.BOTH)
+
+
+
 
 ###############################################################################
     #########################      5        ########################
 ###############################################################################
     def type2(self):
 
-        lang = 'random'
         if config.langchoos == 'polish':
             lang = 'polskim'
-        if config.langchoos == 'english':
+        elif config.langchoos == 'english':
             lang = 'angielskim'
-
 
         config.page = 5
         check = 0
 
-        self.frame5 = tk.Frame(self.root)
+        self.label_name.set("NAUKA SŁÓWEK W JĘZYKU {} \n\n PRZETŁUMACZ SŁOWO, A NASTĘPNIE ZATWIERDZ!".format(lang))
 
-        self.label_name = tk.StringVar()
-        self.label = tk.Label(self.frame5, textvariable=self.label_name, font=42).pack(side="top", pady=20, fill=tk.Y)
-        self.label_name.set("Nauka słówek w języku {}".format(lang))
+        #def show(i):
+        #    self.label_name3.set(i)
 
-
-        def show(i):
-            self.label_name3.set(i)
-
-        def newu():
-            self.label_name2.set(tryby.game(2))
-
+        #def newu():
+        #    self.label_name2.set(tryby.game(2))
 
 
 
         self.label_name2 = tk.StringVar()
         self.label_name3 = tk.StringVar()
-        self.label2 = tk.Label(self.frame5, textvariable=self.label_name2, font=50).pack(side="top", pady=30,fill=tk.Y)
-        newu()
-        self.label3 = tk.Label(self.frame5, textvariable=self.label_name3, font=50).pack(side="top", pady=30, fill=tk.Y)
+        self.label2 = tk.Label(self.root, textvariable=self.label_name2, font=50).place(relx=0.35, rely=0.4, relwidth=0.3)
+        self.label3 = tk.Label(self.root, textvariable=self.label_name3, font=50).place(relx=0.35, rely=0.5, relwidth=0.3)
 
-        self.word = tk.Entry(self.frame5)
-        self.word.pack(side="top")
+        self.word = tk.Entry(self.root)
+        self.word.place(relx=0.35, rely=0.6, relwidth=0.3)
+
+        self.send = tk.Button(self.root, text="ZATWIERDZ", command=lambda check: retrun(check = 1) , width=15)
+        self.send.place(relx=0.7, rely=0.6, relwidth=0.15)
 
 
-        self.send = tk.Button(self.frame5, text="Zatwierdz", command=lambda check: retrun(check = 1) , width=15)
-        self.send.pack(side="top", pady=5, fill=tk.Y)
 
-        self.frame5.pack(expand=True, fill=tk.BOTH)
+    # def backbutton(self):
+    #     global checkback
+    #     checkback = 1
+    #     if config.page == 3:
+    #         self.button_learning.destroy()
+    #         self.button_writing.destroy()
+    #         self.choosgamepage()
+    #     elif config.page == 4:
+    #         self.choostyppage()
+    #     elif config.page == 5:
+    #         self.choostyppage()
 
 
 
 
 root = tk.Tk()
 app = App(root)
-root.geometry("400x400")
+root.geometry("600x600")
 root.title("Aplikacja do fiszek")
 root.mainloop()
 

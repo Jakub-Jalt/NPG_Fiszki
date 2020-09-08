@@ -2,65 +2,31 @@
 # -*- coding: utf-8 -*-
 
 
-class Edward:
+from config import *
 
-    def __init__(self, words_list: str):
-        self.words_list = words_list.replace('\n', '-').split('-')
-        if self.words_list[-1] == '':
-            self.words_list = self.words_list[:-1]
-        self.list_length = len(self.words_list)
 
-    def add_words(self):
-        ang_word = input('enter english word: ')
-        pol_word = input('enter polish word: ')
-        new_list = [ang_word, pol_word]
-        self.words_list.extend(new_list)
-        self.list_length += 2
-        print(f'pair \"{ang_word}-{pol_word}\" added')
+# funkcja dodaje słowa do pliku "all_words.txt"
+# otrzymuje listę ze słowami, gdzie każda pozycja to jedno słowo (typu string)
+# w ten sposób jedna para to pozycje o, odpowiednio, parzystym i nieparzystym indeksie (licząc od zera)
+# następnie konwertuje do typu string i dodaje na koniec pliku "all_words.txt"
+
+
+def add_words(words_list: []):
+    all_words = open('all_words.txt', 'a', encoding='utf-8')
+    lst_len = len(words_list)
+    new_part = '\n'
+    if langchoos == 'polish':  # trub polski - pierwsze zostaje podane słowo po polsku, drugie - po angielsku
+        for i in range(0, lst_len, 2):
+            new_part += f'{words_list[i + 1]}-{words_list[i]}\n'
+    elif langchoos == 'english':  # trub pangielski - pierwsze zostaje podane słowo po angielsku, drugie - po polsku
+        for i in range(0, lst_len, 2):
+            new_part += f'{words_list[i]}-{words_list[i + 1]}\n'
+    else:
         return
-
-    def edit_words(self):
-
-        def search(word: str):
-            i = 0
-            while i < self.list_length:
-                if word == self.words_list[i]:
-                    break
-                i += 1
-            return i
-
-        wanted = input('enter word: ')
-        idx = search(wanted)
-        if idx >= self.list_length:
-            print('your pair has not been found')
-        elif idx % 2 == 0:
-            print(f'found pair: {self.words_list[idx]}-{self.words_list[idx+1]}')
-            wanted = input('enter new pair:\n').split('-')
-            self.words_list[idx] = wanted[0]
-            self.words_list[idx + 1] = wanted[1]
-        elif idx % 2 == 1:
-            print(f'found pair: {self.words_list[idx - 1]}-{self.words_list[idx]}')
-            wanted = input('enter new pair:\n').split('-')
-            self.words_list[idx - 1] = wanted[0]
-            self.words_list[idx] = wanted[1]
-        else:
-            print('search error\n')
-        return
-
-    def ret_list(self):
-        res = ''
-        idx = 0
-        while idx < self.list_length:
-            res += f'{self.words_list[idx]}-{self.words_list[idx+1]}\n'
-            idx += 2
-        res = res[:-1]
-        return res
+    all_words.write(new_part[:-1])
+    all_words.close()
+    return
 
 
 if __name__ == "__main__":
-    with open('all_words.txt', 'r', encoding='utf-8') as all_words:
-        new = Edward(all_words.read())
-    new.add_words()
-    new.edit_words()
-    with open('all_words.txt', 'w', encoding='utf-8') as all_words:
-        all_words.write(new.ret_list())
+    add_words(['english', 'polish'])

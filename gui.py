@@ -20,15 +20,15 @@ class App:
         config.page = 1
 
         self.label_name = tk.StringVar()
-        self.label1 = tk.Label(self.root, font=80, textvariable=self.label_name).place(relx=0.2, rely=0.25, relwidth=0.6)
+        self.label1 = tk.Label(self.root, font=80, textvariable=self.label_name).place(relx=0.1, rely=0.2, relwidth=0.8)
 
         self.label_name.set("Witaj w aplikacji do nauki \n poprzez Fiszki !!! \n\n podaj swoje imie: ")
 
         self.name = tk.Entry(self.root)
-        self.name.place(relx=0.25, rely=0.5, relwidth=0.3)
+        self.name.place(relx=0.25, rely=0.4, relwidth=0.3)
 
         self.button_ok = tk.Button(self.root, width=10, text="OK", command=lambda: hello(self.name.get()))
-        self.button_ok.place(relx=0.6, rely=0.5, relwidth=0.15)
+        self.button_ok.place(relx=0.6, rely=0.4, relwidth=0.15)
 
         def hello(name):
             if name == "":
@@ -119,9 +119,9 @@ class App:
     def type1(self):
 
         if config.langchoos == 'polish':
-            lang = 'polskim'
-        if config.langchoos == 'english':
-            lang = 'angielskim'
+            lang = 'POLSKIM'
+        elif config.langchoos == 'english':
+            lang = 'ANGIELSKI'
 
 
         config.page = 4
@@ -129,24 +129,24 @@ class App:
         self.label_name.set("NAUKA SŁÓWEK W JĘZYKU {}".format(lang))
 
         def show():
-            self.label_name3.set("Slowko odkryte")
+            self.label_name3.set(tryby.check1())
 
-        def newu():
-            self.label_name2.set("Nowe slowo")
+        def next():
+            self.label_name2.set(tryby.game())
             self.label_name3.set("")
 
         self.label_name2 = tk.StringVar()
         self.label_name3 = tk.StringVar()
         self.label2 = tk.Label(self.root, textvariable=self.label_name2, font=50).place(relx=0.35, rely=0.4, relwidth=0.3)
-        self.label_name2.set("Slowko po ang lub pol")
-        self.label3 = tk.Label(self.root, textvariable=self.label_name3, font=50).place(relx=0.35, rely=0.6, relwidth=0.3)
+        self.label_name2.set(tryby.game())
+        self.label3 = tk.Label(self.root, textvariable=self.label_name3, font=50).place(relx=0.35, rely=0.5, relwidth=0.3)
 
 
 
-        self.button_learning = tk.Button(self.root, text="Odkryj", command=show, width=15)
-        self.button_writing = tk.Button(self.root, text="WYPISYWANIE", command=newu, width=15)
-        self.button_learning.place(relx=0.35, rely=0.4, relwidth=0.3)
-        self.button_writing.place(relx=0.35, rely=0.4, relwidth=0.3)
+        self.button_next = tk.Button(self.root, text="POKAŻ", command=show, width=15)
+        self.button_show = tk.Button(self.root, text="NASTĘPNE", command=next, width=15)
+        self.button_next.place(relx=0.33, rely=0.6, relwidth=0.15)
+        self.button_show.place(relx=0.52, rely=0.6, relwidth=0.15)
 
 
 
@@ -158,32 +158,31 @@ class App:
     def type2(self):
 
         if config.langchoos == 'polish':
-            lang = 'polskim'
+            lang = 'POLSKIM'
         elif config.langchoos == 'english':
-            lang = 'angielskim'
+            lang = 'ANGIELSKIM'
 
         config.page = 5
-        check = 0
 
         self.label_name.set("NAUKA SŁÓWEK W JĘZYKU {} \n\n PRZETŁUMACZ SŁOWO, A NASTĘPNIE ZATWIERDZ!".format(lang))
 
-        #def show(i):
-        #    self.label_name3.set(i)
-
-        #def newu():
-        #    self.label_name2.set(tryby.game(2))
-
-
-
         self.label_name2 = tk.StringVar()
-        self.label_name3 = tk.StringVar()
-        self.label2 = tk.Label(self.root, textvariable=self.label_name2, font=50).place(relx=0.35, rely=0.4, relwidth=0.3)
-        self.label3 = tk.Label(self.root, textvariable=self.label_name3, font=50).place(relx=0.35, rely=0.5, relwidth=0.3)
+        self.label2 = tk.Label(self.root, textvariable=self.label_name2, font=50).place(relx=0.35, rely=0.5, relwidth=0.3)
 
-        self.word = tk.Entry(self.root)
-        self.word.place(relx=0.35, rely=0.6, relwidth=0.3)
+        self.label_name2.set(tryby.game())
 
-        self.send = tk.Button(self.root, text="ZATWIERDZ", command=lambda check: retrun(check = 1) , width=15)
+        self.wor = tk.Entry(self.root)
+        self.wor.place(relx=0.35, rely=0.6, relwidth=0.3)
+
+        def check(foo):
+            if foo == tryby.check2(foo):
+                msb.showinfo("info", 'Gratulacje!\nDobrze')
+            else:
+                msb.showinfo("info", 'Poprawne słowo to: {0}'.format(tryby.check1()))
+            self.label_name2.set(tryby.game())
+            self.wor.delete(0, tk.END)
+
+        self.send = tk.Button(self.root, text="ZATWIERDZ", command=lambda: check(self.wor.get()) , width=15)
         self.send.place(relx=0.7, rely=0.6, relwidth=0.15)
 
 

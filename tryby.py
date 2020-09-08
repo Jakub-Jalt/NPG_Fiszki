@@ -5,40 +5,38 @@ import os
 import datetime
 import obsluga_bazy
 
-from gui import *
-
+import config
 max_points: int = 14            #maksymalna liczba punktów do uzyskania w jednej turze gry
 
-word: List[str]
 
 def game() -> str:     # mode: 0 - nic, 1 - ang_pol, 2 - pol_ang, 3 - nauka
 
-    word: List[str] = obsluga_bazy.all_base.get_random_pair()
+    config.word = obsluga_bazy.all_base.get_random_pair()
                                       # typechoos = 1 nauka, 2 wpisywanie
-    if langchoos == "polish":
-        return word[0]
-    elif langchoos == "english":
-        return word[1]
+    if config.langchoos == "polish":
+        return config.word[0]
+    elif config.langchoos == "english":
+        return config.word[1]
 
 def check1() -> str:
-    if langchoos == "polish":
-        return word[1]
-    elif langchoos == "english":
-        return word[0]
+    if config.langchoos == "polish":
+        return config.word[1]
+    elif config.langchoos == "english":
+        return config.word[0]
 
 def check2(received_word: str) -> str:
-    if langchoos == "polish":
-        if received_word == word[1]:
-            f = open("users_words\\" + nick + ".txt", "a", encoding="utf-8")
-            f.write(str(word) + " \n")
+    if config.langchoos == "polish":
+        if received_word == config.word[1]:
+            f = open("users_words\\" + config.nick + ".txt", "a", encoding="utf-8")
+            f.write(str(config.word) + " \n")
             f.close()
-        return word[1]
-    elif langchoos == "english":
-        if received_word == word[0]:
-            f = open("users_words\\" + nick + ".txt", "a", encoding="utf-8")
-            f.write(str(word) + " \n")
+        return config.word[1]
+    elif config.langchoos == "english":
+        if received_word == config.word[0]:
+            f = open("users_words\\" + config.nick + ".txt", "a", encoding="utf-8")
+            f.write(str(config.word) + " \n")
             f.close()
-        return word[0]
+        return config.word[0]
 
 """
 

@@ -56,3 +56,25 @@ def show_stats():
     with open(f'statistics\\{nick}.txt', 'r', encoding='utf-8') as f:
         user_stats = f.read().replace('\n', ' ').split(' ')
     return user_stats
+
+
+# funkcja aktualizująca statystyki po każdej grze
+# 1. argument - liczba poprawnie odgadniętych w trakcie jednej gry
+# 2. argument - liczba wyświetlonych para do odgadnięcia
+# 3. argument - liczba sesji (domyślnie 1)
+
+def after_session(co: int = 0, sh: int = 14, se: int = 1):
+    with open(f'statistics\\{nick}.txt', 'r', encoding='utf-8') as f:
+        user_stats = f.read().replace('\n', ' ').split(' ')
+
+    user_stats[1] += co
+    user_stats[2] += sh
+    user_stats[3] += se
+
+    new_part = ''
+    for i in range(0, positions * 4, 4):
+        new_part += f'{user_stats[i]} {user_stats[i + 1]} {user_stats[i + 2]} {user_stats[i + 3]}\n'
+
+    with open(f'statistics\\{nick}.txt', 'w', encoding='utf-8') as f:
+        f.write(new_part[:-1])
+    return

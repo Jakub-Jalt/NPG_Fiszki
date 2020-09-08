@@ -3,30 +3,32 @@
 
 
 import datetime as dt
+import mode_stat as mo_s
+from os import listdir
+from config import *
 
 
-def main(name: str):
+# funckja sprawdza, czy istnieją pliki dla użytkownika o nazwie zawartej w zmiennej "nick" z pliku "config"
+# jeżeli nie ma - tworzy nowe
+
+
+def check_user():
+    files = [f for f in listdir('statistics')]
+    for f in files:
+        if f == f'{nick}.txt':  # funkcja znalazła pliki użytkownia - jego dane już istnieją
+            mo_s.check_date()  # funkcja automatycznie aktualizyje plik ze statystyką przy logowaniu
+            return
+
     today = dt.date.today()
     new_list = ''
-
-    # wersja orginalna
-
-    for d in range(30):
-        new_list += f'{(today - dt.timedelta(days=d)).isoformat()} 0\n'
-    with open(f'statistics\\{name}.txt', 'w', encoding='utf-8') as s_txt:
-        s_txt.write(new_list)
-
-    # wersja alternatywna
-
-    # new_list = ' 0' * 30
-    # with open(f'statistics\\{name}.txt', 'w', encoding='utf-8') as s_txt:
-    #     s_txt.write(f'{today.isoformat()}' + new_list)
-
-    with open(f'user_words\\{name}.txt', 'w', encoding='utf-8') as w_txt:
+    for d in range(positions):
+        new_list += f'{(today - dt.timedelta(days=d)).isoformat()} 0 0 0\n'
+    with open(f'statistics\\{nick}.txt', 'w', encoding='utf-8') as s_txt:
+        s_txt.write(new_list[:-1])
+    with open(f'user_words\\{nick}.txt', 'w', encoding='utf-8') as w_txt:
         w_txt.write('')
-    return True
+    return
 
 
 if __name__ == "__main__":
-    nick = input('enter your name: ')
-    main(nick)
+    check_user()

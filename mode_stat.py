@@ -65,16 +65,15 @@ def show_stats():
 
 def after_session(co: int = 0, sh: int = 14, se: int = 1):
     with open(f'statistics\\{nick}.txt', 'r', encoding='utf-8') as f:
-        user_stats = f.read().replace('\n', ' ').split(' ')
+        user_stats = f.read().split('\n', 1)
 
-    user_stats[1] += co
-    user_stats[2] += sh
-    user_stats[3] += se
+    temp_var = user_stats[0].split(' ')
+    temp_var[1] = f'{co + int(temp_var[1])}'
+    temp_var[2] = f'{sh + int(temp_var[2])}'
+    temp_var[3] = f'{se + int(temp_var[3])}'
+    user_stats[0] = f'{temp_var[0]} {temp_var[1]} {temp_var[2]} {temp_var[3]}\n'
 
-    new_part = ''
-    for i in range(0, positions * 4, 4):
-        new_part += f'{user_stats[i]} {user_stats[i + 1]} {user_stats[i + 2]} {user_stats[i + 3]}\n'
-
+    new_part = f'{user_stats[0]}{user_stats[1]}'
     with open(f'statistics\\{nick}.txt', 'w', encoding='utf-8') as f:
-        f.write(new_part[:-1])
+        f.write(new_part)
     return

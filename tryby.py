@@ -6,12 +6,34 @@ import datetime
 import obsluga_bazy
 
 import config
-max_points: int = 14            #maksymalna liczba punktów do uzyskania w jednej turze gry
 
 
-def game() -> str:     # mode: 0 - nic, 1 - ang_pol, 2 - pol_ang, 3 - nauka
 
-    config.word = obsluga_bazy.all_base.get_random_pair()
+def game() -> str:
+
+    f = open("users_words\\" + config.nick + ".txt", "r", encoding="utf-8")
+    learned_words: int = len(f.readlines())
+    f.close()
+    f = open("all_words.txt", "r", encoding="utf-8")
+    all_words: int = len(f.readlines())
+    f.close()
+    if learned_words/all_words > 0.9:
+        f = open("users_words\\" + config.nick + ".txt", "w", encoding="utf-8")
+        f.write("")
+        f.close()
+
+
+    config.word: List[str] = obsluga_bazy.all_base.get_random_pair()
+    f = open("users_words\\" + config.nick + ".txt", "r", encoding="utf-8")
+    while str(config.word) in f.readlines():
+        config.word = obsluga_bazy.all_base.get_random_pair()
+    f.close()
+
+
+
+
+
+
                                       # typechoos = 1 nauka, 2 wpisywanie
     if config.langchoos == "polish":
         return config.word[0]
@@ -37,6 +59,15 @@ def check2(received_word: str) -> str:
             f.write(str(config.word) + " \n")
             f.close()
         return config.word[0]
+
+
+
+
+
+
+
+
+
 
 """
 

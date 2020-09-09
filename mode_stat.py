@@ -65,13 +65,13 @@ def show_stats():
 # 3. argument - liczba poprawnie odgadniętych par w trakcie jednej gry w wersji polskiej
 # 4. argument - liczba poprawnie odgadniętych par w trakcie jednej gry w wersji angielskiej
 
-def after_session(sessions: int = 1, showed_words: int = 14, pol_correct: int = 0, eng_correct: int = 0):
+def after_session(sessions: int = 1, shown_words: int = 14, pol_correct: int = 0, eng_correct: int = 0):
     with open(f'statistics\\{nick}.txt', 'r', encoding='utf-8') as f:
         user_stats = f.read().split('\n', 1)
 
     temp_var = user_stats[0].split(' ')
     temp_var[1] = f'{sessions + int(temp_var[1])}'
-    temp_var[2] = f'{showed_words + int(temp_var[2])}'
+    temp_var[2] = f'{shown_words + int(temp_var[2])}'
     temp_var[3] = f'{pol_correct + int(temp_var[3])}'
     temp_var[4] = f'{eng_correct + int(temp_var[4])}'
     user_stats[0] = f'{temp_var[0]} {temp_var[1]} {temp_var[2]} {temp_var[3]} {temp_var[4]}\n'

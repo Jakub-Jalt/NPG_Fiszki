@@ -29,13 +29,14 @@ def check_date():
         for d in range(config.positions):
             new_list = [f'{(cur_day - dt.timedelta(days=d)).isoformat()} 0 0 0 0']
             w_file.extend(new_list)
+        return w_file
 
     with open(f'statistics\\{config.nick}.txt', 'r', encoding='utf-8') as f:
         user_stats = f.read().split('\n')
 
     today = dt.date.today()
     if user_stats[0] == '':
-        create_new(today, user_stats)
+        user_stats = create_new(today, user_stats)
     else:
         temp_var = user_stats[0].split(' ')[0].split('-')
         previous = dt.date(int(temp_var[0]), int(temp_var[1]), int(temp_var[2]))

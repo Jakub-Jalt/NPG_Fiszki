@@ -2,6 +2,9 @@ import tkinter as tk
 from tkinter import messagebox as msb
 import tryby
 import config
+import mode_stat
+import mode_edit
+import mode_new
 
 checkback = 0
 
@@ -39,6 +42,7 @@ class App:
                 config.nick = name  # przypisanie imienia do zmiennej globalnej
                 self.button_ok.destroy()
                 self.name.destroy()
+         #       mode_new.check_user()                                               <-------------- to nie dziala
                 self.choostyppage()
 
 ###############################################################################
@@ -55,6 +59,7 @@ class App:
             self.button_learning.destroy()
             self.button_writing.destroy()
             self.button_stats.destroy()
+            self.button_addword.destroy()
             self.choosgamepage()
 
         def type2():  # wpisywanie
@@ -62,17 +67,36 @@ class App:
             self.button_writing.destroy()
             self.button_learning.destroy()
             self.button_stats.destroy()
+            self.button_addword.destroy()
             self.choosgamepage()
+
+        def stat():  # statystyki
+            config.typechoos = 4
+            self.button_writing.destroy()
+            self.button_learning.destroy()
+            self.button_stats.destroy()
+            self.button_addword.destroy()
+            self.staty()
+
+        def addw():  # dodawanie slow
+            config.typechoos = 5
+            self.button_writing.destroy()
+            self.button_learning.destroy()
+            self.button_stats.destroy()
+            self.button_addword.destroy()
+            self.add()
 
         self.button_learning = tk.Button(self.root, text="NAUKA", command=type1, width=15)
         self.button_writing = tk.Button(self.root, text="WYPISYWANIE", command=type2, width=15)
-        self.button_stats = tk.Button(self.root, text="Statystyki", width=15)  ## BRAK KOMENDY !!!
+        self.button_stats = tk.Button(self.root, text="STATYSTYKI", command=stat, width=15)
+        self.button_addword = tk.Button(self.root, text="DODAJ SŁOWA", command=addw, width=15)
         self.button_learning.place(relx=0.35, rely=0.4, relwidth=0.3)
         self.button_writing.place(relx=0.35, rely=0.48, relwidth=0.3)
         self.button_stats.place(relx=0.35, rely=0.56, relwidth=0.3)
+        self.button_addword.place(relx=0.35, rely=0.64, relwidth=0.3)
 
-       # if checkback == 0:
-      #  self.bbutton = tk.Button(text="back", command=self.backbutton())
+    # if checkback == 0:
+    #    self.bbutton = tk.Button(text="back", command=self.backbutton())
     #    self.bbutton.place(relx=0.9, rely=0.9, relwidth=0.8)
 
 ###############################################################################
@@ -84,7 +108,7 @@ class App:
         global  checkback
 
         if checkback == 1:
-            self.bbutton.destroy()
+        #    self.bbutton.destroy()
             checkback = 0
 
         self.label_name.set("{0} WYBIERZ JĘZYK DO NAUKI: ".format(config.nick))
@@ -119,9 +143,9 @@ class App:
     def type1(self):
 
         if config.langchoos == 'polish':
-            lang = 'POLSKIM'
+            lang: str = "POLSKIM"
         elif config.langchoos == 'english':
-            lang = 'ANGIELSKI'
+            lang: str = "ANGIELSKI"
 
 
         config.page = 4
@@ -158,9 +182,9 @@ class App:
     def type2(self):
 
         if config.langchoos == 'polish':
-            lang = 'POLSKIM'
+            lang: str = "POLSKIM"
         elif config.langchoos == 'english':
-            lang = 'ANGIELSKIM'
+            lang: str = "ANGIELSKIM"
 
         config.page = 5
 
@@ -185,7 +209,47 @@ class App:
         self.send = tk.Button(self.root, text="ZATWIERDZ", command=lambda: check(self.wor.get()) , width=15)
         self.send.place(relx=0.7, rely=0.6, relwidth=0.15)
 
+###############################################################################
+    #########################      6        ########################
+###############################################################################
+    def staty(self):
 
+        config.page = 6
+        self.label_name.set("STATYSTYKI NAUKI")
+
+        stat = mode_stat.check_date()
+
+        self.label_name2 = tk.StringVar()
+        self.label2 = tk.Label(self.root, textvariable=self.label_name2, font=50).place(relx=0.1, rely=0.5, relwidth=0.8)
+        self.label_name2.set("#1 - data dnia rozgrywek: {0} \n#2 - liczba odbytych rozgrywek: {1} \n#3 - liczba łącznie wyświetlonych słów: {2} \n#4 - liczba łącznie odgadniętych słów w wersji polskiej: {3} \n#5 - liczba łącznie odgadniętych słów w wersji angielskiej: {4}  ".format(stat[0],stat[1],stat[2],stat[3],stat[4]))
+
+###############################################################################
+    #########################      7        ########################
+###############################################################################
+    def add(self):
+        config.page = 7
+        self.label_name.set("DODAWANIE SŁÓWEK")
+
+        def send():
+            wordpol:str=self.word_polish.get()
+            wordeng:str=self.word_english.get()
+            pair = [wordeng, wordpol]
+            mode_edit.add_words(pair)
+            self.word_english.delete(0, tk.END)
+            self.word_polish.delete(0, tk.END)
+
+
+        self.label_name2 = tk.StringVar()
+        self.label2 = tk.Label(self.root, textvariable=self.label_name2, font=50).place(relx=0.2, rely=0.4)
+        self.label_name2.set("SŁÓWKO PO ANGIELSKU: \n\n SŁÓWKO PO POLSKU: ")
+
+        self.word_english = tk.Entry(self.root)
+        self.word_english.place(relx=0.55, rely=0.4, relwidth=0.3)
+        self.word_polish = tk.Entry(self.root)
+        self.word_polish.place(relx=0.55, rely=0.465, relwidth=0.3)
+
+        self.button_send = tk.Button(self.root, text="ZATWIERDZ", command=send, width=15)
+        self.button_send.place(relx=0.55, rely=0.52, relwidth=0.15)
 
     # def backbutton(self):
     #     global checkback

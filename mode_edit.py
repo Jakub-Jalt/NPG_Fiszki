@@ -18,7 +18,7 @@ def add_words(words_list: []):
     if langchoos == 'polish':  # trub polski - pierwsze zostaje podane słowo po polsku, drugie - po angielsku
         for i in range(0, lst_len, 2):
             new_part += f'{words_list[i + 1]}-{words_list[i]}\n'
-    elif langchoos == 'english':  # trub pangielski - pierwsze zostaje podane słowo po angielsku, drugie - po polsku
+    elif langchoos == 'english' or 'null':  # trub pangielski - pierwsze zostaje podane słowo po angielsku, drugie - po polsku
         for i in range(0, lst_len, 2):
             new_part += f'{words_list[i]}-{words_list[i + 1]}\n'
     else:

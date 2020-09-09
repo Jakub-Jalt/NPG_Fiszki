@@ -3,7 +3,7 @@
 
 
 import datetime as dt
-from config import *
+import config
 
 
 # funkcja aktualizuje pliki z danymi statystycznymi użytkownika
@@ -11,36 +11,45 @@ from config import *
 def check_date():
     def update(cur_day: dt.date, last_day: dt.date, w_file: []):
         dif = (cur_day - last_day).days
-        if dif > positions:
+        if dif > config.positions:
             w_file.clear()
-            for d in range(positions):
-                new_list = [f'{(today - dt.timedelta(days=d)).isoformat()} 0 0 0 0']
+            for d in range(config.positions):
+                new_list = [f'{(cur_day - dt.timedelta(days=d)).isoformat()} 0 0 0 0']
                 w_file.extend(new_list)
         else:
             while dif > 0:
                 dif -= 1
-                new_list = [f'{(today - dt.timedelta(days=dif)).isoformat()} 0 0 0 0']
+                new_list = [f'{(cur_day - dt.timedelta(days=dif)).isoformat()} 0 0 0 0']
                 w_file = new_list + w_file
-            w_file = w_file[:positions]
+            w_file = w_file[:config.positions]
         return w_file
 
-    with open(f'statistics\\{nick}.txt', 'r', encoding='utf-8') as f:
+    def create_new(cur_day: dt.date, w_file: []):
+        w_file.clear()
+        for d in range(config.positions):
+            new_list = [f'{(cur_day - dt.timedelta(days=d)).isoformat()} 0 0 0 0']
+            w_file.extend(new_list)
+
+    with open(f'statistics\\{config.nick}.txt', 'r', encoding='utf-8') as f:
         user_stats = f.read().split('\n')
 
     today = dt.date.today()
-    temp_var = user_stats[0].split(' ')[0].split('-')
-    previous = dt.date(int(temp_var[0]), int(temp_var[1]), int(temp_var[2]))
-    if previous > today:
-        # data ostatniego logowania znajduje się chronologicznie poźniej niż data dzisiejsza (wg systemu)
-        print('error occurred due to time travel - check your system time')
-    elif previous < today:
-        user_stats = update(today, previous, user_stats)
+    if user_stats[0] == '':
+        create_new(today, user_stats)
+    else:
+        temp_var = user_stats[0].split(' ')[0].split('-')
+        previous = dt.date(int(temp_var[0]), int(temp_var[1]), int(temp_var[2]))
+        if previous > today:
+            # data ostatniego logowania znajduje się chronologicznie poźniej niż data dzisiejsza (wg systemu)
+            print('error occurred due to time travel - check your system time')
+        elif previous < today:
+            user_stats = update(today, previous, user_stats)
 
     new_part = ''
     for i in user_stats:
         new_part += f'{i}\n'
 
-    with open(f'statistics\\{nick}.txt', 'w', encoding='utf-8') as f:
+    with open(f'statistics\\{config.nick}.txt', 'w', encoding='utf-8') as f:
         f.write(new_part[:-1])
     return
 
@@ -54,7 +63,7 @@ def check_date():
 # 5 - liczba łącznie odgadniętych słów w wersji angielskiej
 
 def show_stats():
-    with open(f'statistics\\{nick}.txt', 'r', encoding='utf-8') as f:
+    with open(f'statistics\\{config.nick}.txt', 'r', encoding='utf-8') as f:
         user_stats = f.read().replace('\n', ' ').split(' ')
     return user_stats
 
@@ -66,7 +75,7 @@ def show_stats():
 # 4. argument - liczba poprawnie odgadniętych par w trakcie jednej gry w wersji angielskiej
 
 def after_session(sessions: int = 1, shown_words: int = 14, pol_correct: int = 0, eng_correct: int = 0):
-    with open(f'statistics\\{nick}.txt', 'r', encoding='utf-8') as f:
+    with open(f'statistics\\{config.nick}.txt', 'r', encoding='utf-8') as f:
         user_stats = f.read().split('\n', 1)
 
     temp_var = user_stats[0].split(' ')
@@ -77,7 +86,7 @@ def after_session(sessions: int = 1, shown_words: int = 14, pol_correct: int = 0
     user_stats[0] = f'{temp_var[0]} {temp_var[1]} {temp_var[2]} {temp_var[3]} {temp_var[4]}\n'
 
     new_part = f'{user_stats[0]}{user_stats[1]}'
-    with open(f'statistics\\{nick}.txt', 'w', encoding='utf-8') as f:
+    with open(f'statistics\\{config.nick}.txt', 'w', encoding='utf-8') as f:
         f.write(new_part)
     return
 

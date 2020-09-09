@@ -22,7 +22,7 @@ def check_user():
     today = dt.date.today()
     new_list = ''
     for d in range(positions):
-        new_list += f'{(today - dt.timedelta(days=d)).isoformat()} 0 0 0\n'
+        new_list += f'{(today - dt.timedelta(days=d)).isoformat()} 0 0 0 0\n'
     with open(f'statistics\\{nick}.txt', 'w', encoding='utf-8') as s_txt:
         s_txt.write(new_list[:-1])
     with open(f'user_words\\{nick}.txt', 'w', encoding='utf-8') as w_txt:

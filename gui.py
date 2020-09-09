@@ -15,6 +15,7 @@ class App:
         self.root = root
         self.main()
 
+
 ###############################################################################
     #########################      1        ########################
 ###############################################################################
@@ -38,11 +39,11 @@ class App:
                 msb.showinfo("info", 'Podaj imie !!!')
             else:
                 print(str)
-                msb.showinfo("info", 'Witaj, {0}\n teraz czeka cię nauka :)'.format(name))
                 config.nick = name  # przypisanie imienia do zmiennej globalnej
+                msb.showinfo("info", 'Witaj, {0}\n teraz czeka cię nauka :)'.format(config.nick))
                 self.button_ok.destroy()
                 self.name.destroy()
-         #       mode_new.check_user()                                               <-------------- to nie dziala
+                mode_new.check_user()
                 self.choostyppage()
 
 ###############################################################################
@@ -95,21 +96,22 @@ class App:
         self.button_stats.place(relx=0.35, rely=0.56, relwidth=0.3)
         self.button_addword.place(relx=0.35, rely=0.64, relwidth=0.3)
 
-    # if checkback == 0:
-    #    self.bbutton = tk.Button(text="back", command=self.backbutton())
-    #    self.bbutton.place(relx=0.9, rely=0.9, relwidth=0.8)
 
 ###############################################################################
-    #########################      2        ########################
+    #########################      3        ########################
 ###############################################################################
     def choosgamepage(self):
 
-        config.page = 2
-        global  checkback
+        config.page = 3
 
-        if checkback == 1:
-        #    self.bbutton.destroy()
-            checkback = 0
+        def back():
+            self.button_english.destroy()
+            self.button_polish.destroy()
+            self.back_button.destroy()
+            self.choostyppage()
+
+        self.back_button = tk.Button(self.root, command=back, text="BACK")
+        self.back_button.place(relx=0.89, rely=0.95, relwidth=0.1)
 
         self.label_name.set("{0} WYBIERZ JĘZYK DO NAUKI: ".format(config.nick))
 
@@ -117,6 +119,7 @@ class App:
             config.langchoos = 'polish'
             self.button_polish.destroy()
             self.button_english.destroy()
+            self.back_button.destroy()
             if config.typechoos == 1:
                 self.type1()
             elif config.typechoos == 2:
@@ -126,6 +129,7 @@ class App:
             config.langchoos = 'english'
             self.button_polish.destroy()
             self.button_english.destroy()
+            self.back_button.destroy()
             if config.typechoos == 1:
                 self.type1()
             elif config.typechoos == 2:
@@ -149,6 +153,17 @@ class App:
 
 
         config.page = 4
+
+        def back():
+            self.button_show.destroy()
+            self.button_next.destroy()
+            self.label2.destroy()
+            self.label3.destroy()
+            self.back_button.destroy()
+            self.choosgamepage()
+
+        self.back_button = tk.Button(self.root, command=back, text="BACK")
+        self.back_button.place(relx=0.89, rely=0.95, relwidth=0.1)
 
         self.label_name.set("NAUKA SŁÓWEK W JĘZYKU {}".format(lang))
 
@@ -188,12 +203,22 @@ class App:
 
         config.page = 5
 
+
+
+
         self.label_name.set("NAUKA SŁÓWEK W JĘZYKU {} \n\n PRZETŁUMACZ SŁOWO, A NASTĘPNIE ZATWIERDZ!".format(lang))
 
         self.label_name2 = tk.StringVar()
         self.label2 = tk.Label(self.root, textvariable=self.label_name2, font=50).place(relx=0.35, rely=0.5, relwidth=0.3)
 
         self.label_name2.set(tryby.game())
+
+        def back():
+            self.label_name2.destroy()
+            self.send.destroy()
+            self.wor.destroy()
+            self.choosgamepage()
+            self.back_button.destroy()
 
         self.wor = tk.Entry(self.root)
         self.wor.place(relx=0.35, rely=0.6, relwidth=0.3)
@@ -209,25 +234,49 @@ class App:
         self.send = tk.Button(self.root, text="ZATWIERDZ", command=lambda: check(self.wor.get()) , width=15)
         self.send.place(relx=0.7, rely=0.6, relwidth=0.15)
 
+        self.back_button = tk.Button(self.root, command=back, text="BACK")
+        self.back_button.place(relx=0.89, rely=0.95, relwidth=0.1)
+
 ###############################################################################
     #########################      6        ########################
 ###############################################################################
     def staty(self):
 
         config.page = 6
+
+        def back():
+            self.label2.destroy()
+            self.back_button.destroy()
+            self.choostyppage()
+
+        self.back_button = tk.Button(self.root, command=back, text="BACK")
+        self.back_button.place(relx=0.89, rely=0.95, relwidth=0.1)
+
         self.label_name.set("STATYSTYKI NAUKI")
 
-        stat = mode_stat.check_date()
+        stat = mode_stat.show_stats()
 
         self.label_name2 = tk.StringVar()
-        self.label2 = tk.Label(self.root, textvariable=self.label_name2, font=50).place(relx=0.1, rely=0.5, relwidth=0.8)
+        self.label2 = tk.Label(self.root, textvariable=self.label_name2, font=50).place(relx=0.1, rely=0.3, relwidth=0.8)
         self.label_name2.set("#1 - data dnia rozgrywek: {0} \n#2 - liczba odbytych rozgrywek: {1} \n#3 - liczba łącznie wyświetlonych słów: {2} \n#4 - liczba łącznie odgadniętych słów w wersji polskiej: {3} \n#5 - liczba łącznie odgadniętych słów w wersji angielskiej: {4}  ".format(stat[0],stat[1],stat[2],stat[3],stat[4]))
 
 ###############################################################################
     #########################      7        ########################
 ###############################################################################
     def add(self):
+
         config.page = 7
+
+        def back():
+            self.word_polish.destroy()
+            self.word_english.destroy()
+            self.button_send.destroy()
+            self.back_button.destroy()
+            self.choostyppage()
+
+        self.back_button = tk.Button(self.root, command=back, text="BACK")
+        self.back_button.place(relx=0.89, rely=0.95, relwidth=0.1)
+
         self.label_name.set("DODAWANIE SŁÓWEK")
 
         def send():
@@ -251,17 +300,7 @@ class App:
         self.button_send = tk.Button(self.root, text="ZATWIERDZ", command=send, width=15)
         self.button_send.place(relx=0.55, rely=0.52, relwidth=0.15)
 
-    # def backbutton(self):
-    #     global checkback
-    #     checkback = 1
-    #     if config.page == 3:
-    #         self.button_learning.destroy()
-    #         self.button_writing.destroy()
-    #         self.choosgamepage()
-    #     elif config.page == 4:
-    #         self.choostyppage()
-    #     elif config.page == 5:
-    #         self.choostyppage()
+
 
 
 

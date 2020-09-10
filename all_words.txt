@@ -53,3 +53,4 @@ rat-szczur
 sun-s³once
 sky-niebo
 river-rzeka
+book-ksi¹¿ka

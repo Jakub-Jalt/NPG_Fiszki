@@ -69,7 +69,7 @@ def save_session():
     if config.langchoos == "polish":
         m_s.after_session(shown_words = config.words_in_session, pol_correct = config.pol_in_session)
     elif config.langchoos == "english":
-        m_s.after_session(shown_words = config.words_in_session, pol_correct = config.eng_in_session)
+        m_s.after_session(shown_words = config.words_in_session, eng_correct = config.eng_in_session)
     config.words_in_session = 0
     config.pol_in_session = 0
     config.eng_in_session = 0

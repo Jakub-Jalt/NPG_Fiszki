@@ -2,3 +2,6 @@
 ['leg', 'noga'] 
 ['surname', 'nazwisko'] 
 ['cave', 'jaskinia'] 
+['nose', 'nos'] 
+['sheep', 'owca'] 
+['computer', 'komputer'] 

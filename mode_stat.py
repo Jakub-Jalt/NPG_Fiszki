@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 
 
-# import matplotlib.pylab as plt
+import matplotlib.pylab as plt
 import datetime as dt
 import config
 
@@ -58,29 +58,29 @@ def check_date():
 
 # funkcja wyświetla wykres punktów z ostatnich 7 dni
 
-# def show_plot():
-#     with open(f'statistics\\{config.nick}.txt', 'r', encoding='utf-8') as f:
-#         src = f.read().split('\n')
-#     dates = []
-#     pol_cor = []
-#     eng_cor = []
-#     for e in src[:7]:
-#         i = e.split(' ')
-#         temp_var = i[0].split('-')
-#         temp_date = dt.date(int(temp_var[0]), int(temp_var[1]), int(temp_var[2]))
-#         i[0] = temp_date.strftime('%b %d.')
-#         dates += [i[0]]
-#         pol_cor += [int(i[3])]
-#         eng_cor += [int(i[4])]
+def show_plot():
+    with open(f'statistics\\{config.nick}.txt', 'r', encoding='utf-8') as f:
+        src = f.read().split('\n')
+    dates = []
+    pol_cor = []
+    eng_cor = []
+    for e in src[:7]:
+        i = e.split(' ')
+        temp_var = i[0].split('-')
+        temp_date = dt.date(int(temp_var[0]), int(temp_var[1]), int(temp_var[2]))
+        i[0] = temp_date.strftime('%b %d.')
+        dates += [i[0]]
+        pol_cor += [int(i[3])]
+        eng_cor += [int(i[4])]
 
-#     plt.plot(dates, pol_cor, 'bo-', dates, eng_cor, 'ro-')
-#     plt.ylim(0)
-#     plt.grid(True, alpha=0.2)
-#     plt.title('wykaz uzyskanych punktów za gry:')
-#     plt.legend(['w wersji polskiej', 'w wersji angielskiej'], loc='upper left')
-#     plt.show()
+    plt.plot(dates, pol_cor, 'bo-', dates, eng_cor, 'ro-')
+    plt.ylim(0)
+    plt.grid(True, alpha=0.2)
+    plt.title('wykaz uzyskanych punktów za gry:')
+    plt.legend(['w wersji polskiej', 'w wersji angielskiej'], loc='upper left')
+    plt.show()
 
-#     return
+    return
 
 
 # funkcja zwraca zmienną string ze sformatowanym tekstem

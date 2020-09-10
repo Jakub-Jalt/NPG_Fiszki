@@ -69,13 +69,31 @@ def show_stats():
     return user_stats
 
 
+# funkcja zwraca zmienną string ze sformatowanym tekstem
+# prezentującym dane statystyczne - wystarczy go wyświetlić
+
+def show_stats_full():
+    with open(f'statistics\\{config.nick}.txt', 'r', encoding='utf-8') as f:
+        user_stats = f.read().split('\n')
+    ret_file = 'data'.center(10) + '  ' + 'liczba'.center(10) + ' ' + 'liczba'.center(20) + ' ' +\
+               'liczba odgadniętych słów'.center(26) + '\n' + 'rozgrywek'.center(10) + '  ' +\
+               'rozgrywek'.center(10) + ' ' + 'wyświetlony słów'.center(20) + ' ' + 'po polsku'.center(12) +\
+               '|' + 'po angielsku'.center(14) + '\n\n'
+    for i in user_stats:
+        temp_var = i.split(' ')
+        ret_file += f'{temp_var[0].center(10)}   {temp_var[1].center(10)}' \
+                    f'{temp_var[2].center(20)} {temp_var[3].center(13)} {temp_var[4].center(14)}\n'
+    # print(ret_file)
+    return ret_file
+
+
 # funkcja aktualizująca statystyki po każdej grze
 # 1. argument - liczba sesji (domyślnie 1)
 # 2. argument - liczba wyświetlonych par do odgadnięcia
 # 3. argument - liczba poprawnie odgadniętych par w trakcie jednej gry w wersji polskiej
 # 4. argument - liczba poprawnie odgadniętych par w trakcie jednej gry w wersji angielskiej
 
-def after_session(sessions: int = 1, shown_words: int = 14, pol_correct: int = 0, eng_correct: int = 0):
+def after_session(sessions: int = 1, shown_words: int = 0, pol_correct: int = 0, eng_correct: int = 0):
     with open(f'statistics\\{config.nick}.txt', 'r', encoding='utf-8') as f:
         user_stats = f.read().split('\n', 1)
 

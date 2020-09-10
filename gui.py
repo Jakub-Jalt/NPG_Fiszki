@@ -31,15 +31,14 @@ class App:
         self.name = tk.Entry(self.root)
         self.name.place(relx=0.25, rely=0.4, relwidth=0.3)
 
-        self.button_ok = tk.Button(self.root, width=10, text="OK", command=lambda: hello(self.name.get()))
+        self.button_ok = tk.Button(self.root, width=10, text="OK", command=lambda: hello())
         self.button_ok.place(relx=0.6, rely=0.4, relwidth=0.15)
 
-        def hello(name):
-            if name == "":
+        def hello():
+            config.nick = self.name.get()  # przypisanie imienia do zmiennej globalnej
+            if config.nick == "":
                 msb.showinfo("info", 'Podaj imie !!!')
             else:
-                print(str)
-                config.nick = name  # przypisanie imienia do zmiennej globalnej
                 msb.showinfo("info", 'Witaj, {0}\n teraz czeka cię nauka :)'.format(config.nick))
                 self.button_ok.destroy()
                 self.name.destroy()
@@ -157,8 +156,8 @@ class App:
         def back():
             self.button_show.destroy()
             self.button_next.destroy()
-            self.label2.destroy()
-            self.label3.destroy()
+            self.label_name2.set("")
+            self.label_name3.set("")
             self.back_button.destroy()
             self.choosgamepage()
 
@@ -214,7 +213,7 @@ class App:
         self.label_name2.set(tryby.game())
 
         def back():
-            self.label_name2.destroy()
+            self.label_name2.set("")
             self.send.destroy()
             self.wor.destroy()
             self.choosgamepage()
@@ -245,7 +244,7 @@ class App:
         config.page = 6
 
         def back():
-            self.label2.destroy()
+            self.label_name2.set("")
             self.back_button.destroy()
             self.choostyppage()
 
@@ -254,11 +253,9 @@ class App:
 
         self.label_name.set("STATYSTYKI NAUKI")
 
-        stat = mode_stat.show_stats()
-
         self.label_name2 = tk.StringVar()
-        self.label2 = tk.Label(self.root, textvariable=self.label_name2, font=50).place(relx=0.1, rely=0.3, relwidth=0.8)
-        self.label_name2.set("#1 - data dnia rozgrywek: {0} \n#2 - liczba odbytych rozgrywek: {1} \n#3 - liczba łącznie wyświetlonych słów: {2} \n#4 - liczba łącznie odgadniętych słów w wersji polskiej: {3} \n#5 - liczba łącznie odgadniętych słów w wersji angielskiej: {4}  ".format(stat[0],stat[1],stat[2],stat[3],stat[4]))
+        self.label2 = tk.Label(self.root, textvariable=self.label_name2, justify="left", font = 40).place(relx=0.1, rely=0.3, relwidth=0.8)
+        self.label_name2.set(mode_stat.show_stats_full())
 
 ###############################################################################
     #########################      7        ########################

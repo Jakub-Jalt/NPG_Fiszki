@@ -227,7 +227,7 @@ class App:
         self.send = tk.Button(self.root, text="ZATWIERDZ", command=lambda: check(self.wor.get()), width=15, bg="orange")
         self.send.place(relx=0.7, rely=0.45, relwidth=0.15)
 
-        self.button_save = tk.Button(self.root, text="ZAPISZ SESJE !!!", width=15, command=mode_game.save_session(),
+        self.button_save = tk.Button(self.root, text="ZAPISZ SESJE !!!", width=15, command=lambda: mode_game.save_session(),
                                      bg="olive")  # komendaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
         self.button_save.place(relx=0.35, rely=0.6, relwidth=0.3)
 

@@ -47,20 +47,18 @@ def check1() -> str:
         return config.word[0]
 
 def check2(received_word: str) -> str:
-    #global eng_in_session, pol_in_session, words_in_session
-    config.words_in_session += 1
+    global eng_in_session, pol_in_session, words_in_session
+    words_in_session += 1
     if config.langchoos == "polish":
-
+        pol_in_session += 1
         if received_word == config.word[1]:
-            config.pol_in_session += 1
             f = open("users_words\\" + config.nick + ".txt", "a", encoding="utf-8")
             f.write(str(config.word) + " \n")
             f.close()
         return config.word[1]
     elif config.langchoos == "english":
-
+        eng_in_session += 1
         if received_word == config.word[0]:
-            config.eng_in_session += 1
             f = open("users_words\\" + config.nick + ".txt", "a", encoding="utf-8")
             f.write(str(config.word) + " \n")
             f.close()

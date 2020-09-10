@@ -124,5 +124,5 @@ def after_session(sessions: int = 1, shown_words: int = 0, pol_correct: int = 0,
     return
 
 
-# if __name__ == "__main__":
-#     pass
+if __name__ == "__main__":
+    show_plot()

@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 
 
-# import matplotlib.pylab as plt
+import matplotlib.pylab as plt
 import datetime as dt
 import config
 
@@ -57,35 +57,30 @@ def check_date():
 
 
 # funkcja wyświetla wykres punktów z ostatnich 7 dni
-# dostępna jest opcja dla wersji gry po polsku i po angielsku
-#
-# def show_plot():
-#     with open(f'statistics\\{config.nick}.txt', 'r', encoding='utf-8') as f:
-#         src = f.read().split('\n')
-#     dates = []
-#     pol_cor = []
-#     eng_cor = []
-#     for e in src[:7]:
-#         i = e.split(' ')
-#         temp_var = i[0].split('-')
-#         temp_date = dt.date(int(temp_var[0]), int(temp_var[1]), int(temp_var[2]))
-#         i[0] = temp_date.strftime('%b %d.')
-#         dates += [i[0]]
-#         pol_cor += [int(i[3])]
-#         eng_cor += [int(i[4])]
-#     if config.langchoos == 'polish':
-#         plt.plot(dates, pol_cor, 'o-', color='green', alpha=0.5)
-#         plt.ylim(0)
-#         plt.grid(True, alpha=0.2)
-#         plt.show()
-#     elif config.langchoos == 'english' or 'null':
-#         plt.plot(dates, eng_cor, 'o-', color='green', alpha=0.8)
-#         plt.ylim(0)
-#         plt.grid(True, alpha=0.2)
-#         plt.show()
-#     else:
-#         pass
-#     return
+
+def show_plot():
+    with open(f'statistics\\{config.nick}.txt', 'r', encoding='utf-8') as f:
+        src = f.read().split('\n')
+    dates = []
+    pol_cor = []
+    eng_cor = []
+    for e in src[:7]:
+        i = e.split(' ')
+        temp_var = i[0].split('-')
+        temp_date = dt.date(int(temp_var[0]), int(temp_var[1]), int(temp_var[2]))
+        i[0] = temp_date.strftime('%b %d.')
+        dates += [i[0]]
+        pol_cor += [int(i[3])]
+        eng_cor += [int(i[4])]
+
+    plt.plot(dates, pol_cor, 'bo-', dates, eng_cor, 'ro-')
+    plt.ylim(0)
+    plt.grid(True, alpha=0.2)
+    plt.title('wykaz uzyskanych punktów za gry:')
+    plt.legend(['w wersji polskiej', 'w wersji angielskiej'], loc='upper left')
+    plt.show()
+
+    return
 
 
 # funkcja zwraca zmienną string ze sformatowanym tekstem
@@ -94,14 +89,14 @@ def check_date():
 def show_stats_full():
     with open(f'statistics\\{config.nick}.txt', 'r', encoding='utf-8') as f:
         user_stats = f.read().split('\n')
-    ret_file = 'data'.center(10) + '  ' + 'liczba'.center(10) + ' ' + 'liczba'.center(20) + ' ' +\
-               'liczba odgadniętych słów'.center(26) + '\n' + 'rozgrywek'.center(10) + '  ' +\
-               'rozgrywek'.center(10) + ' ' + 'wyświetlony słów'.center(20) + ' ' + 'po polsku'.center(12) +\
-               '|' + 'po angielsku'.center(14) + '\n\n'
+    ret_file = 'data'.center(18, ' ') + 'liczba'.center(16, ' ') + 'liczba'.center(28, ' ') +\
+               'liczba odgadniętych słów'.center(28, ' ') + '\n' +\
+               'rozgrywek'.center(13, ' ') + 'rozgrywek'.center(11, ' ') + 'wyświetlony słów'.center(20, ' ') +\
+               'po polsku'.center(13, ' ') + '|' + 'po angielsku'.center(14, ' ') + '\n\n'
     for i in user_stats:
         temp_var = i.split(' ')
-        ret_file += f'{temp_var[0].center(10)}   {temp_var[1].center(10)}' \
-                    f'{temp_var[2].center(20)} {temp_var[3].center(13)} {temp_var[4].center(14)}\n'
+        ret_file += f'{temp_var[0].center(11)}{temp_var[1].center(22)}' \
+                    f'{temp_var[2].center(28)}{temp_var[3].center(18)} {temp_var[4].center(21)}\n'
     # print(ret_file)
     return ret_file
 

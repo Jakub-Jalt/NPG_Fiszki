@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 
 
-import matplotlib.pylab as plt
+# import matplotlib.pylab as plt
 import datetime as dt
 import config
 
@@ -58,34 +58,34 @@ def check_date():
 
 # funkcja wyświetla wykres punktów z ostatnich 7 dni
 # dostępna jest opcja dla wersji gry po polsku i po angielsku
-
-def show_plot():
-    with open(f'statistics\\{config.nick}.txt', 'r', encoding='utf-8') as f:
-        src = f.read().split('\n')
-    dates = []
-    pol_cor = []
-    eng_cor = []
-    for e in src[:7]:
-        i = e.split(' ')
-        temp_var = i[0].split('-')
-        temp_date = dt.date(int(temp_var[0]), int(temp_var[1]), int(temp_var[2]))
-        i[0] = temp_date.strftime('%b %d.')
-        dates += [i[0]]
-        pol_cor += [int(i[3])]
-        eng_cor += [int(i[4])]
-    if config.langchoos == 'polish':
-        plt.plot(dates, pol_cor, 'o-', color='green', alpha=0.5)
-        plt.ylim(0)
-        plt.grid(True, alpha=0.2)
-        plt.show()
-    elif config.langchoos == 'english' or 'null':
-        plt.plot(dates, eng_cor, 'o-', color='green', alpha=0.8)
-        plt.ylim(0)
-        plt.grid(True, alpha=0.2)
-        plt.show()
-    else:
-        pass
-    return
+#
+# def show_plot():
+#     with open(f'statistics\\{config.nick}.txt', 'r', encoding='utf-8') as f:
+#         src = f.read().split('\n')
+#     dates = []
+#     pol_cor = []
+#     eng_cor = []
+#     for e in src[:7]:
+#         i = e.split(' ')
+#         temp_var = i[0].split('-')
+#         temp_date = dt.date(int(temp_var[0]), int(temp_var[1]), int(temp_var[2]))
+#         i[0] = temp_date.strftime('%b %d.')
+#         dates += [i[0]]
+#         pol_cor += [int(i[3])]
+#         eng_cor += [int(i[4])]
+#     if config.langchoos == 'polish':
+#         plt.plot(dates, pol_cor, 'o-', color='green', alpha=0.5)
+#         plt.ylim(0)
+#         plt.grid(True, alpha=0.2)
+#         plt.show()
+#     elif config.langchoos == 'english' or 'null':
+#         plt.plot(dates, eng_cor, 'o-', color='green', alpha=0.8)
+#         plt.ylim(0)
+#         plt.grid(True, alpha=0.2)
+#         plt.show()
+#     else:
+#         pass
+#     return
 
 
 # funkcja zwraca zmienną string ze sformatowanym tekstem

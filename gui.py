@@ -1,6 +1,6 @@
 import tkinter as tk
 from tkinter import messagebox as msb
-import tryby
+import mode_game
 import config
 import mode_stat
 import mode_edit
@@ -15,10 +15,9 @@ class App:
         self.root = root
         self.main()
 
-
-###############################################################################
+    ###############################################################################
     #########################      1        ########################
-###############################################################################
+    ###############################################################################
     def main(self):
 
         config.page = 1
@@ -31,7 +30,8 @@ class App:
         self.name = tk.Entry(self.root)
         self.name.place(relx=0.25, rely=0.4, relwidth=0.3)
 
-        self.button_ok = tk.Button(self.root, width=10, text="OK", command=lambda: hello(), relief="raised", default="active", )
+        self.button_ok = tk.Button(self.root, width=10, text="OK", command=lambda: hello(), relief="raised",
+                                   default="active", )
         self.button_ok.place(relx=0.6, rely=0.4, relwidth=0.15)
 
         def hello():
@@ -46,9 +46,9 @@ class App:
                 mode_new.check_user()
                 self.choostyppage()
 
-###############################################################################
-      #########################      2        ########################
-###############################################################################
+    ###############################################################################
+    #########################      2        ########################
+    ###############################################################################
     def choostyppage(self):
 
         config.page = 2
@@ -96,10 +96,9 @@ class App:
         self.button_stats.place(relx=0.35, rely=0.46, relwidth=0.3)
         self.button_addword.place(relx=0.35, rely=0.54, relwidth=0.3)
 
-
-###############################################################################
+    ###############################################################################
     #########################      3        ########################
-###############################################################################
+    ###############################################################################
     def choosgamepage(self):
 
         config.page = 3
@@ -141,16 +140,15 @@ class App:
         self.button_english.place(relx=0.35, rely=0.38, relwidth=0.3)
         self.button_polish.place(relx=0.35, rely=0.3, relwidth=0.3)
 
-###############################################################################
+    ###############################################################################
     #########################      4        ########################
-###############################################################################
+    ###############################################################################
     def type1(self):
 
         if config.langchoos == 'polish':
             lang: str = "POLSKIM"
         elif config.langchoos == 'english':
             lang: str = "ANGIELSKI"
-
 
         config.page = 4
 
@@ -168,32 +166,28 @@ class App:
         self.label_name.set("NAUKA SŁÓWEK W JĘZYKU {}".format(lang))
 
         def show():
-            self.label_name3.set(tryby.check1())
+            self.label_name3.set(mode_game.check1())
 
         def next():
-            self.label_name2.set(tryby.game())
+            self.label_name2.set(mode_game.game())
             self.label_name3.set("")
 
         self.label_name2 = tk.StringVar()
         self.label_name3 = tk.StringVar()
-        self.label2 = tk.Label(self.root, textvariable=self.label_name2, font=50).place(relx=0.35, rely=0.4, relwidth=0.3)
-        self.label_name2.set(tryby.game())
-        self.label3 = tk.Label(self.root, textvariable=self.label_name3, font=50).place(relx=0.35, rely=0.5, relwidth=0.3)
-
-
+        self.label2 = tk.Label(self.root, textvariable=self.label_name2, font=50).place(relx=0.35, rely=0.4,
+                                                                                        relwidth=0.3)
+        self.label_name2.set(mode_game.game())
+        self.label3 = tk.Label(self.root, textvariable=self.label_name3, font=50).place(relx=0.35, rely=0.5,
+                                                                                        relwidth=0.3)
 
         self.button_next = tk.Button(self.root, text="POKAŻ", command=show, width=15, bg="aqua")
         self.button_show = tk.Button(self.root, text="NASTĘPNE", command=next, width=15, bg="orange")
         self.button_next.place(relx=0.33, rely=0.6, relwidth=0.15)
         self.button_show.place(relx=0.52, rely=0.6, relwidth=0.15)
 
-
-
-
-
-###############################################################################
+    ###############################################################################
     #########################      5        ########################
-###############################################################################
+    ###############################################################################
     def type2(self):
 
         if config.langchoos == 'polish':
@@ -206,9 +200,10 @@ class App:
         self.label_name.set("NAUKA SŁÓWEK W JĘZYKU {} \n\n PRZETŁUMACZ SŁOWO, A NASTĘPNIE ZATWIERDZ!".format(lang))
 
         self.label_name2 = tk.StringVar()
-        self.label2 = tk.Label(self.root, textvariable=self.label_name2, font="50").place(relx=0.35, rely=0.35, relwidth=0.3)
+        self.label2 = tk.Label(self.root, textvariable=self.label_name2, font="50").place(relx=0.35, rely=0.35,
+                                                                                          relwidth=0.3)
 
-        self.label_name2.set(tryby.game())
+        self.label_name2.set(mode_game.game())
 
         def back():
             self.label_name2.set("")
@@ -218,30 +213,30 @@ class App:
             self.back_button.destroy()
             self.choosgamepage()
 
-
         self.wor = tk.Entry(self.root)
         self.wor.place(relx=0.35, rely=0.45, relwidth=0.3)
 
         def check(foo):
-            if foo == tryby.check2(foo):
+            if foo == mode_game.check2(foo):
                 msb.showinfo("info", 'GRATULACJE !!!\nDOBRZE')
             else:
-                msb.showinfo("info", 'Poprawne słowo to: {0}'.format(tryby.check1()))
-            self.label_name2.set(tryby.game())
+                msb.showinfo("info", 'Poprawne słowo to: {0}'.format(mode_game.check1()))
+            self.label_name2.set(mode_game.game())
             self.wor.delete(0, tk.END)
 
-        self.send = tk.Button(self.root, text="ZATWIERDZ", command=lambda: check(self.wor.get()) , width=15, bg="orange")
+        self.send = tk.Button(self.root, text="ZATWIERDZ", command=lambda: check(self.wor.get()), width=15, bg="orange")
         self.send.place(relx=0.7, rely=0.45, relwidth=0.15)
 
-        self.button_save = tk.Button(self.root, text="ZAPISZ SESJE !!!", width=15, bg="olive") # komendaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+        self.button_save = tk.Button(self.root, text="ZAPISZ SESJE !!!", width=15, command=mode_game.save_session(),
+                                     bg="olive")  # komendaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
         self.button_save.place(relx=0.35, rely=0.6, relwidth=0.3)
 
         self.back_button = tk.Button(self.root, command=back, text="<--")
         self.back_button.place(relx=0.89, rely=0.95, relwidth=0.1)
 
-###############################################################################
+    ###############################################################################
     #########################      6        ########################
-###############################################################################
+    ###############################################################################
     def staty(self):
 
         config.page = 6
@@ -257,12 +252,14 @@ class App:
         self.label_name.set("STATYSTYKI NAUKI")
 
         self.label_name2 = tk.StringVar()
-        self.label2 = tk.Label(self.root, textvariable=self.label_name2, justify="left", font = 40).place(relx=0.1, rely=0.3, relwidth=0.8)
+        self.label2 = tk.Label(self.root, textvariable=self.label_name2, justify="left", font=40).place(relx=0.1,
+                                                                                                        rely=0.3,
+                                                                                                        relwidth=0.8)
         self.label_name2.set(mode_stat.show_stats_full())
 
-###############################################################################
+    ###############################################################################
     #########################      7        ########################
-###############################################################################
+    ###############################################################################
     def add(self):
 
         config.page = 7
@@ -281,13 +278,12 @@ class App:
         self.label_name.set("DODAWANIE SŁÓWEK")
 
         def send():
-            wordpol:str=self.word_polish.get()
-            wordeng:str=self.word_english.get()
+            wordpol: str = self.word_polish.get()
+            wordeng: str = self.word_english.get()
             pair = [wordeng, wordpol]
             mode_edit.add_words(pair)
             self.word_english.delete(0, tk.END)
             self.word_polish.delete(0, tk.END)
-
 
         self.label_name2 = tk.StringVar()
         self.label2 = tk.Label(self.root, textvariable=self.label_name2, font=50).place(relx=0.2, rely=0.4)
@@ -301,10 +297,9 @@ class App:
         self.button_send = tk.Button(self.root, text="ZATWIERDZ", command=send, width=15, bg="orange")
         self.button_send.place(relx=0.55, rely=0.52, relwidth=0.15)
 
+
 root = tk.Tk()
 app = App(root)
 root.geometry("600x600")
 root.title("Aplikacja do fiszek")
 root.mainloop()
-
-

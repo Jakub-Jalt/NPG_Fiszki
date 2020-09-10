@@ -56,13 +56,8 @@ def check_date():
     return
 
 
-# funkcja zwraca listę z dany statystycznymi użytkownika
-# każda kolejna czwórka elementów listy to jedna pozycja pliku:
-# 1 - data dnia rozgrywek
-# 2 - liczba odbytych rozgrywek
-# 3 - liczba łącznie wyświetlonych słów
-# 4 - liczba łącznie odgadniętych słów w wersji polskiej
-# 5 - liczba łącznie odgadniętych słów w wersji angielskiej
+# funkcja wyświetla wykres punktów z ostatnich 7 dni
+# dostępna jest opcja dla wersji gry po polsku i po angielsku
 
 def show_plot():
     with open(f'statistics\\{config.nick}.txt', 'r', encoding='utf-8') as f:

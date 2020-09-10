@@ -11,3 +11,7 @@ nick = 'Mateusz'  # nazwa użytkownika
 page = 0  # numer strony
 positions = 10  # liczba pozycji w pliku z danymi statystycznymi
 word = []
+
+words_in_session = 0
+pol_in_session = 0
+eng_in_session = 0

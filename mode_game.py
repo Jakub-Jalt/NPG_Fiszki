@@ -3,7 +3,7 @@
 from typing import Callable, Mapping, Optional, List
 import os
 import datetime
-import obsluga_bazy
+import database
 import mode_stat as m_s
 import config
 
@@ -23,10 +23,10 @@ def game() -> str:
         f.close()
 
 
-    config.word: List[str] = obsluga_bazy.all_base.get_random_pair()
+    config.word: List[str] = database.all_base.get_random_pair()
     f = open("users_words\\" + config.nick + ".txt", "r", encoding="utf-8")
     while str(config.word) in f.readlines():
-        config.word = obsluga_bazy.all_base.get_random_pair()
+        config.word = database.all_base.get_random_pair()
     f.close()
 
 

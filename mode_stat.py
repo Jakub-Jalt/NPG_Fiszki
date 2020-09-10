@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 
 
-import matplotlib.pylab as plt
+#import matplotlib.pylab as plt
 import datetime as dt
 import config
 
@@ -57,7 +57,7 @@ def check_date():
 
 
 # funkcja wyświetla wykres punktów z ostatnich 7 dni
-
+'''
 def show_plot():
     with open(f'statistics\\{config.nick}.txt', 'r', encoding='utf-8') as f:
         src = f.read().split('\n')
@@ -85,7 +85,7 @@ def show_plot():
 
 # funkcja zwraca zmienną string ze sformatowanym tekstem
 # prezentującym dane statystyczne - wystarczy go wyświetlić
-
+'''
 def show_stats_full():
     with open(f'statistics\\{config.nick}.txt', 'r', encoding='utf-8') as f:
         user_stats = f.read().split('\n')
